@@ -1,22 +1,41 @@
 <?php
-require_once("configdb.php");
+require_once("./Database/configdb.php");
 header('Content-Type: application/json');
 
+function isUsernameAndPasswordValid($conn, $username, $password)
+{
+    $query = "SELECT UserName, Password FROM account WHERE UserName = '$username'";
+    $result = $conn->query($query);
+
+    if ($result->num_rows == 1) {
+        $row = $result->fetch_assoc();
+        $hashedPassword = $row['Password'];
+        return password_verify($password, $hashedPassword);
+    } else {
+        return false; 
+    }
+}
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $username = $_POST['username'] ?? '';
+    $password = $_POST['password'] ?? '';
 
-    // Kiểm tra xem người dùng tồn tại trong cơ sở dữ liệu hay không
-    $checkQuery = "SELECT * FROM account WHERE UserName = '$username' AND Password = '$password'";
-    $checkResult = $conn->query($checkQuery);
+    if (empty($username) || empty($password)) {
+        $response = array('status' => 'error', 'message' => 'Vui lòng điền đầy đủ thông tin');
+        echo json_encode($response);
+        exit();
+    }
 
-    if ($checkResult->num_rows > 0) {
+    if (isUsernameAndPasswordValid($conn, $username, $password)) {
         $response = array('status' => 'success', 'message' => 'Đăng nhập thành công');
     } else {
         $response = array('status' => 'error', 'message' => 'Tên đăng nhập hoặc mật khẩu không chính xác');
     }
 
-    // Trả về kết quả dưới dạng JSON
+    echo json_encode($response);
+} else {
+    $response = array('status' => 'error', 'message' => 'Yêu cầu không hợp lệ');
     echo json_encode($response);
 }
 ?>

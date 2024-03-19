@@ -38,7 +38,7 @@ function sendEmail($email)
         $mail->Port = 587;
 
         $mail->Username = 'voankhanh0@gmail.com';
-        $mail->Password = 'wuub augj xzei eqtm'; 
+        $mail->Password = 'wuub augj xzei eqtm';
 
         $mail->setFrom('voankhanh0@gmail.com', 'KhanhAn');
         $mail->addAddress($email);
@@ -99,6 +99,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $response = array('status' => 'error', 'message' => 'Yêu cầu không hợp lệ');
     echo json_encode($response);
 }
-?>
-
-

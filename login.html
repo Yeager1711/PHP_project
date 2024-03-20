@@ -1,47 +1,43 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng nhập</title>
+    <title>Login</title>
 </head>
 <body>
-    <h2>Đăng nhập</h2>
-    <form id="loginForm" action="Login_API.php" method="post">
+    <h2>Login</h2>
+    <form id="loginForm">
         <div>
-            <label for="username">Tên người dùng:</label>
-            <input type="text" id="username" name="username" >
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username">
         </div>
         <div>
-            <label for="password">Mật khẩu:</label>
-            <input type="password" id="password" name="password" >
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password">
         </div>
-        <button type="submit">Đăng nhập</button>
+        <button type="submit">Login</button>
     </form>
 
-    <div id="responseMessage"></div>
+    <div id="message"></div>
 
     <script>
         document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault(); 
-
+            event.preventDefault();
             var formData = new FormData(this);
-
-            fetch(this.getAttribute("action"), {
+            fetch('Login_API.php', {
                 method: 'POST',
                 body: formData
             })
             .then(response => response.json())
             .then(data => {
-                document.getElementById("responseMessage").innerText = data.message;
-                if(data.status === 'success') {
+                document.getElementById('message').innerHTML = data.message;
+                if (data.status === 'success') {
                     window.location.href = "login_registration_success.html";
                 }
             })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+            .catch(error => console.error('Error:', error));
         });
     </script>
 </body>
-</html> -->
+</html>

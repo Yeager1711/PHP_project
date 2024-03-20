@@ -4,12 +4,10 @@ require_once("./Database/configdb.php");
 if (isset($_GET['token'])) {
     $resetToken = $_GET['token'];
 
-    // Kiểm tra xem token có hợp lệ hay không
     $queryCheckToken = "SELECT * FROM account WHERE ResetToken = '$resetToken'";
     $resultCheckToken = mysqli_query($conn, $queryCheckToken);
 
     if (mysqli_num_rows($resultCheckToken) > 0) {
-        // Hiển thị form đổi mật khẩu
 ?>
         <!DOCTYPE html>
         <html lang="en">

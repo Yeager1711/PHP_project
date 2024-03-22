@@ -1,0 +1,53 @@
+.wrapper-login {
+  max-width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+.wrapper-login .wrapper-container {
+  margin: auto;
+  padding: 2rem;
+  max-width: 70rem;
+  width: 100%;
+  border-radius: 1rem;
+}
+.wrapper-login .wrapper-container form h3 {
+  text-align: center;
+  font-size: 2.3rem;
+}
+.wrapper-login .wrapper-container form .box {
+  margin: 2.2rem 0;
+}
+.wrapper-login .wrapper-container form .box span {
+  display: block;
+  font-size: 1.5rem;
+  padding-bottom: 0.5rem;
+}
+.wrapper-login .wrapper-container form .box input {
+  padding: 0.7rem 1.5rem;
+  border: 0.1rem solid #dbdbdb;
+  width: 100%;
+  border-radius: 0.5rem;
+  font-size: 16px;
+}
+.wrapper-login .wrapper-container form .box input::-moz-placeholder {
+  font-size: 1.4rem;
+}
+.wrapper-login .wrapper-container form .box input::placeholder {
+  font-size: 1.4rem;
+}
+.wrapper-login .wrapper-container form .controller-btn a {
+  font-size: 1.6rem;
+  color: red;
+}
+.wrapper-login .wrapper-container form .controller-btn a:hover {
+  text-decoration: underline;
+}
+.wrapper-login .wrapper-container form .controller-btn .btn-submitlogin {
+  display: inline-block;
+  float: right;
+  background: #4531f2;
+  color: #fff;
+  padding: 0.7rem 3rem;
+  border-radius: 0.5rem;
+}/*# sourceMappingURL=login.css.map */

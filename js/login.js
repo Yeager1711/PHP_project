@@ -14,7 +14,7 @@ function submitLoginForm() {
 
         // Gửi dữ liệu đến API
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', './api/v1/login_account.php', true);
+        xhr.open('POST', './api/v1/account/login_account.php', true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.onreadystatechange = function() {
             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {

@@ -36,11 +36,20 @@
         </nav>
 
         <div class="icons">
-            <div id="menu-btn" class="ri-menu-line"></div>
-            <a href="search-btn" class="ri-search-line"></a>
-            <a href="cart-btn" class="ri-shopping-cart-line"></a>
-            <a href="./register.php" class="ri-user-line"></a>
-        </div>
+    <div id="menu-btn" class="ri-menu-line"></div>
+    <a href="search-btn" class="ri-search-line"></a>
+    <a href="cart-btn" class="ri-shopping-cart-line"></a>
+    <?php
+    session_start();
+
+    if (isset($_SESSION['fullname'])) {
+        $fullname = $_SESSION['fullname'];
+        echo '<a href="./register.php" class="ri-user-line">'.$fullname.'</a>';
+    } else {
+        echo '<a href="./register.php" class="ri-user-line"></a>';
+    }
+    ?>
+</div>
 
     </header>
 

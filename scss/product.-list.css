@@ -1,0 +1,59 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Satisfy&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+.list-product {
+  padding: 0 10%;
+}
+.list-product .wrapper-list {
+  display: flex;
+  gap: 1rem;
+}
+.list-product .wrapper-list .category {
+  padding: 1.5rem;
+}
+.list-product .wrapper-list .category h3 {
+  font-size: 2rem;
+}
+.list-product .wrapper-list .category a {
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  display: block;
+}
+.list-product .wrapper-list .category a:hover {
+  background: #dbdbdb;
+}
+.list-product .wrapper-list .list {
+  flex: 1 1 42rem;
+  padding: 1.5rem 0;
+}
+.list-product .wrapper-list .list h3 {
+  font-size: 2rem;
+}
+.list-product .wrapper-list .list .container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(28rem, 1fr));
+  gap: 1.5rem;
+}
+.list-product .wrapper-list .list .container .box {
+  padding: 1.5rem;
+}
+.list-product .wrapper-list .list .container .box .image {
+  max-width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.list-product .wrapper-list .list .container .box .image img {
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.list-product .wrapper-list .list .container .box h3 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+.list-product .wrapper-list .list .container .box span {
+  margin-top: 0.5rem;
+  font-size: 1.5rem;
+  color: var(--orange);
+  font-weight: 550;
+}/*# sourceMappingURL=product.-list.css.map */

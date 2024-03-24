@@ -1,5 +1,5 @@
 <?php
-require_once("./Database/configdb.php");
+require_once("./api/v1/db_connect.php");
 require 'vendor/autoload.php';
 header('Content-Type: application/json');
 

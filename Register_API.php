@@ -1,5 +1,5 @@
 <?php
-require_once("./Database/configdb.php");
+require_once("./api/v1/db_connect.php");
 require 'vendor/autoload.php';
 require 'phpmailer/src/Exception.php';
 require 'phpmailer/src/PHPMailer.php';
@@ -45,7 +45,7 @@ function sendEmail($email)
         $mail->addReplyTo('voankhanh0@gmail.com', 'KhanhAn');
 
         $mail->IsHTML(true);
-        $mail->Subject = "Thank You";
+        $mail->Subject = "Welcome to our website";
         $mail->Body = 'Thank you for using our app';
 
         $mail->send();
@@ -56,11 +56,12 @@ function sendEmail($email)
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $fullname = $_POST['fullname'] ?? '';
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
     $email = $_POST['email'] ?? '';
 
-    if (empty($username) || empty($password) || empty($email)) {
+    if (empty($fullname) || empty($username) || empty($password) || empty($email)) {
         $response = array('status' => 'error', 'message' => 'Vui lòng điền đầy đủ thông tin');
         echo json_encode($response);
         exit();
@@ -79,8 +80,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $userCount = $rowUserCount['userCount'];
     $maRole = ($userCount == 0) ? 1 : 2;
 
-    $query = "INSERT INTO account (UserName, Password, Email, RoleID) 
-              VALUES ('$username', '$hashedPassword', '$email', $maRole)";
+    $query = "INSERT INTO account (FullName, UserName, Password, Email, RoleID) 
+              VALUES ('$fullname', '$username', '$hashedPassword', '$email', $maRole)";
 
     $result = mysqli_query($conn, $query);
 

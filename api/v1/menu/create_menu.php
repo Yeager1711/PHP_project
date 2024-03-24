@@ -7,12 +7,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Kiểm tra dữ liệu
     if (isset($data['MenuName']) && isset($data['Image'])) {
-        $menunmae = $data['MenuName'];
+        $menuname = $data['MenuName'];
         $image = $data['Image'];
         // $roleID = $data['RoleID'];
         $roleID = 2;
         // Tạo câu truy vấn INSERT
-        $sql = "INSERT INTO account (MenuName, Image) VALUES ('$menunmae', '$image')";
+        $sql = "INSERT INTO account (MenuName, Image) VALUES ('$menuname', '$image')";
 
         if ($conn->query($sql) === TRUE) {
             // Trả về thông tin account đã được tạo

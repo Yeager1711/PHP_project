@@ -256,8 +256,86 @@
     <!-- popular section ends -->
 
 
-    <!-- banner section starts  -->
+    <!-- blogs section starts  -->
 
+    <section class="blogs" id="blogs">
+
+        <div class="heading">
+            <span>our blogs</span>
+            <h3>our daily stories</h3>
+        </div>
+
+        <div class="box-container">
+
+            <div class="box">
+                <div class="image">
+                    <h3> <i class="fas fa-calendar"></i> 21st may, 2021 </h3>
+                    <img src="image/blog-1.jpeg" alt="">
+                </div>
+                <div class="content">
+                    <div class="tags">
+                        <a href="#"> <i class="fas fa-tag"></i> food / </a>
+                        <a href="#"> <i class="fas fa-tag"></i> burgger / </a>
+                        <a href="#"> <i class="fas fa-tag"></i> pizza </a>
+                    </div>
+
+                    <h3>blog title goes here..</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, deleniti.</p>
+                    <a href="#" class="btn">read more</a>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="image">
+                    <h3> <i class="fas fa-calendar"></i> 21st may, 2021 </h3>
+                    <img src="image/blog-2.jpeg" alt="">
+                </div>
+                <div class="content">
+                    <div class="tags">
+                        <a href="#"> <i class="fas fa-tag"></i> food / </a>
+                        <a href="#"> <i class="fas fa-tag"></i> burgger / </a>
+                        <a href="#"> <i class="fas fa-tag"></i> pizza </a>
+                    </div>
+
+                    <h3>blog title goes here..</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, deleniti.</p>
+                    <a href="#" class="btn">read more</a>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="image">
+                    <h3> <i class="fas fa-calendar"></i> 21st may, 2021 </h3>
+                    <img src="image/blog-3.jpeg" alt="">
+                </div>
+                <div class="content">
+                    <div class="tags">
+                        <a href="#"> <i class="fas fa-tag"></i> food / </a>
+                        <a href="#"> <i class="fas fa-tag"></i> burgger / </a>
+                        <a href="#"> <i class="fas fa-tag"></i> pizza </a>
+                    </div>
+
+                    <h3>blog title goes here..</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, deleniti.</p>
+                    <a href="#" class="btn">read more</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- blogs section ends -->
+
+
+
+
+
+
+
+
+
+
+    <!-- banner section starts  -->
+<!-- 
     <section class="banner">
 
         <div class="row-banner">
@@ -297,7 +375,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- banner section ends -->
 
@@ -371,7 +449,7 @@
     <section class="order" id="order">
 
         <div class="heading">
-            <span>order now</span>
+            <span>Booking Now</span>
             <h3>fastest home delivery</h3>
         </div>
 
@@ -383,12 +461,12 @@
 
             <div class="icons">
                 <img src="image/icon-2.png" alt="">
-                <h3>+123 987654321</h3>
+                <h3>+84 852 999 848</h3>
             </div>
 
             <div class="icons">
                 <img src="image/icon-3.png" alt="">
-                <h3>WestBengal, india 45896</h3>
+                <h3>475A Đ. Điện Biên Phủ, P.25, Bình Thạnh, TP.HCM</h3>
             </div>
         </div>
 
@@ -433,7 +511,7 @@
                 </div>
                 <div class="inputBox">
                     <iframe class="map"
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3721767.259503259!2d85.60745827416464!3d24.362569215778873!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39fa16ff1397e887%3A0x71543a3dc3e7a20a!2sWest%20Bengal!5e0!3m2!1sen!2sin!4v1680178059620!5m2!1sen!2sin"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.684062976253!2d106.711881!3d10.8016228!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317528a459cb43ab%3A0x6c3d29d370b52a7e!2sHUTECH%20-%20%C4%90%E1%BA%A1i%20h%E1%BB%8Dc%20C%C3%B4ng%20ngh%E1%BB%87%20TP.HCM%20(Sai%20Gon%20Campus)!5e0!3m2!1sen!2sin!4v1680178059620!5m2!1sen!2sin"
                         allowfullscreen="" loading="lazy"></iframe>
                 </div>
             </div>
@@ -444,76 +522,6 @@
     </section>
 
     <!-- order section ends -->
-
-
-    <!-- blogs section starts  -->
-
-    <section class="blogs" id="blogs">
-
-        <div class="heading">
-            <span>our blogs</span>
-            <h3>our daily stories</h3>
-        </div>
-
-        <div class="box-container">
-
-            <div class="box">
-                <div class="image">
-                    <h3> <i class="fas fa-calendar"></i> 21st may, 2021 </h3>
-                    <img src="image/blog-1.jpeg" alt="">
-                </div>
-                <div class="content">
-                    <div class="tags">
-                        <a href="#"> <i class="fas fa-tag"></i> food / </a>
-                        <a href="#"> <i class="fas fa-tag"></i> burgger / </a>
-                        <a href="#"> <i class="fas fa-tag"></i> pizza </a>
-                    </div>
-
-                    <h3>blog title goes here..</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, deleniti.</p>
-                    <a href="#" class="btn">read more</a>
-                </div>
-            </div>
-
-            <div class="box">
-                <div class="image">
-                    <h3> <i class="fas fa-calendar"></i> 21st may, 2021 </h3>
-                    <img src="image/blog-2.jpeg" alt="">
-                </div>
-                <div class="content">
-                    <div class="tags">
-                        <a href="#"> <i class="fas fa-tag"></i> food / </a>
-                        <a href="#"> <i class="fas fa-tag"></i> burgger / </a>
-                        <a href="#"> <i class="fas fa-tag"></i> pizza </a>
-                    </div>
-
-                    <h3>blog title goes here..</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, deleniti.</p>
-                    <a href="#" class="btn">read more</a>
-                </div>
-            </div>
-
-            <div class="box">
-                <div class="image">
-                    <h3> <i class="fas fa-calendar"></i> 21st may, 2021 </h3>
-                    <img src="image/blog-3.jpeg" alt="">
-                </div>
-                <div class="content">
-                    <div class="tags">
-                        <a href="#"> <i class="fas fa-tag"></i> food / </a>
-                        <a href="#"> <i class="fas fa-tag"></i> burgger / </a>
-                        <a href="#"> <i class="fas fa-tag"></i> pizza </a>
-                    </div>
-
-                    <h3>blog title goes here..</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, deleniti.</p>
-                    <a href="#" class="btn">read more</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- blogs section ends -->
 
 
     <!-- footer section starts  -->

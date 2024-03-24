@@ -35,15 +35,18 @@
 
  }
 
-*{
-    font-family: var(--font-body);
-    margin:0; padding:0;
-    box-sizing: border-box;
-    outline: none; border:none;
-    text-decoration: none;
-    color:var(--black);
-    transition: .3s all linear;
+ * {
+   font-family: var(--font-body);
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   outline: none;
+   border: none;
+   text-decoration: none;
+   color: var(--black);
+   transition: .3s all linear;
 }
+
 
 *::selection{
    background-color: var(--green);

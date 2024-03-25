@@ -3,6 +3,22 @@ require_once('../db_connect.php');
 
 session_start(); // Bắt đầu phiên làm việc
 
+function generateAccountID() {
+    $uuid = sprintf(
+        '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+        mt_rand(0, 0xffff),
+        mt_rand(0, 0xffff),
+        mt_rand(0, 0xffff),
+        mt_rand(0, 0x0fff) | 0x4000,
+        mt_rand(0, 0x3fff) | 0x8000,
+        mt_rand(0, 0xffff),
+        mt_rand(0, 0xffff),
+        mt_rand(0, 0xffff)
+    );
+
+    return $uuid;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Lấy dữ liệu từ request
     $data = json_decode(file_get_contents("php://input"), true);
@@ -13,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $email = $data['Email'];
         $username = $data['UserName'];
         $password = $data['Password'];
-        $roleID = 2; // Cố định giá trị RoleID là 2
+        $roleID = "8895cda3-548d-4cca-808c-6053256da06e"; // Cố định giá trị RoleID là 2
 
         // Kiểm tra xem người dùng đã đăng nhập hay chưa
         if (isset($_SESSION['fullname'])) {
@@ -22,12 +38,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit(); // Dừng thực thi mã
         }
 
+        $accountID = generateAccountID();
+
         // Tạo câu truy vấn INSERT
-        $sql = "INSERT INTO account (FullName, Email, UserName, Password, RoleID) VALUES ('$fullName', '$email', '$username', '$password', '$roleID')";
+        $sql = "INSERT INTO account (AccountID, FullName, Email, UserName, Password, RoleID) VALUES ('$accountID', '$fullName', '$email', '$username', '$password', '$roleID')";
 
         if ($conn->query($sql) === TRUE) {
             // Trả về thông tin account đã được tạo
-            $accountID = $conn->insert_id;
             $response = array('message' => 'Account created successfully', 'status' => 'success', 'data' => array('AccountID' => $accountID, 'FullName' => $fullName, 'Email' => $email, 'UserName' => $username, 'Password' => $password, 'RoleID' => $roleID));
             echo json_encode($response);
         } else {

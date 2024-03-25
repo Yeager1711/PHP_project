@@ -8,6 +8,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $menuname = $data['MenuName'];
         $image = $data['Image'];
 
+        $checkMenuQuery = "SELECT * FROM category WHERE MenuName = '$menuname'";
+        $result = $conn->query($checkMenuQuery);
+
+        if ($result->num_rows > 0) {
+            $response = array('message' => 'Menu ' .$menuname. ' already exists', 'status' => 'error');
+            echo json_encode($response);
+            exit;
+        }
+
         if (preg_match('/[!@#$%^&*(),.?":{}|<>~`\-=_+\/\\\[\]]/', $menuname)) {
             $response = array('message' => 'Menu name should not contain special characters', 'status' => 'error');
             echo json_encode($response);
@@ -18,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($conn->query($sql) === TRUE) {
             $accountID = $conn->insert_id;
-            $response = array('message' => 'Menu ' . $menuname. ' created successfully', 'status' => 'success');
+            $response = array('message' => 'Menu ' . $menuname . ' created successfully', 'status' => 'success');
             echo json_encode($response);
         } else {
             $response = array('message' => 'Failed to create menu', 'status' => 'error', 'error' => $conn->error);
@@ -30,4 +39,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 $conn->close();
-?>

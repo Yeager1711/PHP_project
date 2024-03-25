@@ -6,6 +6,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($data['DrinkName'])) {
         $drinkName = $data['DrinkName'];
+        $checkDrinkNameQuery = "SELECT * FROM dish WHERE DrinkName = '$drinkName'";
+        $result = $conn->query($checkDrinkNameQuery);
+        if ($result->num_rows > 0) {
+            $response = array('message' => 'Drink ' .$drinkName. ' already exists', 'status' => 'error');
+            echo json_encode($response);
+            exit;
+        }
         $specialChars = array("~", "`", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "_", "=", "+", "[", "{", "]", "}", "\\", "|", ";", ":", "'", "\"", "<", ">", ",", ".", "?", "/");
         $invalidCharsFound = false;
         foreach ($specialChars as $char) {
@@ -46,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($data['MenuID'])) {
         $menuID = $data['MenuID'];
-        $checkMenuID = "SELECT * FROM menu WHERE MenuID = '$menuID'";
+        $checkMenuID = "SELECT * FROM category WHERE MenuID = '$menuID'";
         $result = $conn->query($checkMenuID);
         if ($result->num_rows == 0) {
             $response = array('message' => 'Menu ID not found', 'status' => 'error');
@@ -62,11 +69,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $image = $data['Image'];
         $menuID = $data['MenuID'];
 
-        $sql = "INSERT INTO drinks (DrinkName, Price, Description, Image, MenuID) VALUES ('$drinksName', '$price', '$description', '$image', '$menuID')";
+        $sql = "INSERT INTO dish (DrinkName, Price, Description, Image, MenuID) VALUES ('$drinksName', '$price', '$description', '$image', '$menuID')";
 
         if ($conn->query($sql) === TRUE) {
             $drinksID = $conn->insert_id;
-            $response = array('message' => 'Drinks created successfully', 'status' => 'success', 'data' => array('DrinksID' => $drinksID, 'DrinksName' => $drinksName, 'Price' => $price, 'Description' => $description, 'Image' => $image, 'MenuID' => $menuID));
+            $response = array('message' => 'Drinks ' . $drinkName. 'created successfully', 'status' => 'success', 'data' => array('DrinksID' => $drinksID, 'DrinksName' => $drinksName, 'Price' => $price, 'Description' => $description, 'Image' => $image, 'MenuID' => $menuID));
             echo json_encode($response);
         } else {
             $response = array('message' => 'Failed to create drinks', 'status' => 'error', 'error' => $conn->error);

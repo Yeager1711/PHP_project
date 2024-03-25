@@ -7,20 +7,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     if (isset($data['DrinksID'])) {
         $drinksID = $data['DrinksID'];
 
-        $sql = "DELETE FROM drinks WHERE DrinksID = '$drinksID'";
+        $getDishNameQuery = "SELECT DrinkName FROM dish WHERE DrinksID = '$drinksID'";
+        $result = $conn->query($getDishNameQuery);
+        
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $dishName = $row['DrinkName'];
 
-        $result = $conn->query($sql);
+            $sql = "DELETE FROM dish WHERE DrinksID = '$drinksID'";
+            $result = $conn->query($sql);
 
-        if ($result) {
-            if ($conn->affected_rows > 0) {
-                $response = array('message' => 'Drinks deleted successfully', 'status' => 'success');
+            if ($result && $conn->affected_rows > 0) {
+                $response = array('message' => 'Drink ' . $dishName . ' deleted successfully', 'status' => 'success');
                 echo json_encode($response);
             } else {
-                $response = array('message' => 'No drinks found with the provided ID', 'status' => 'error');
+                $response = array('message' => 'Failed to delete menu', 'status' => 'error');
                 echo json_encode($response);
             }
         } else {
-            $response = array('message' => 'Failed to delete drinks', 'status' => 'error', 'error' => $conn->error);
+            $response = array('message' => 'Drink ID not found', 'status' => 'error');
             echo json_encode($response);
         }
     } else {

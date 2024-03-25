@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
                 } else {
                     $sql = "UPDATE dish SET DrinkName = '$drinksName', Price = '$price', Description = '$description', Image = '$image', MenuID = '$menuID' WHERE DrinksID = '$drinksID'";
                     if ($conn->query($sql) === TRUE) {
-                        $response = array('message' => 'Drinks updated successfully', 'status' => 'success', 'data' => array('DrinksID' => $drinksID, 'DrinksName' => $drinksName, 'Price' => $price, 'Description' => $description, 'Image' => $image, 'MenuID' => $menuID));
+                        $response = array('message' => 'Drinks'. $drinksName . 'updated successfully', 'status' => 'success', 'data' => array('DrinksID' => $drinksID, 'DrinksName' => $drinksName, 'Price' => $price, 'Description' => $description, 'Image' => $image, 'MenuID' => $menuID));
                         echo json_encode($response);
                     } else {
                         $response = array('message' => 'Failed to update drinks', 'status' => 'error', 'error' => $conn->error);

@@ -1,11 +1,9 @@
 <?php
 require_once('../db_connect.php');
-// Xử lý phương thức GET
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    if (isset($_GET['DrinksID'])) { // Kiểm tra xem có tham số DrinksID được truyền vào không
-        $drinkId = $_GET['DrinksID']; // Nhận giá trị DrinksID từ tham số truyền vào
+    if (isset($_GET['DrinksID'])) { 
+        $drinkId = $_GET['DrinksID']; 
 
-        // Tạo câu truy vấn SELECT với điều kiện WHERE DrinksID = $drinkId
         $sql = "SELECT * FROM drinks WHERE DrinksID = $drinkId";
 
         $result = $conn->query($sql);

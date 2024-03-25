@@ -14,11 +14,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
 
-        $sql = "INSERT INTO menu (MenuName, Image) VALUES ('$menuname', '$image')";
+        $sql = "INSERT INTO category (MenuName, Image) VALUES ('$menuname', '$image')";
 
         if ($conn->query($sql) === TRUE) {
             $accountID = $conn->insert_id;
-            $response = array('message' => 'Menu created successfully', 'status' => 'success');
+            $response = array('message' => 'Menu ' . $menuname. ' created successfully', 'status' => 'success');
             echo json_encode($response);
         } else {
             $response = array('message' => 'Failed to create menu', 'status' => 'error', 'error' => $conn->error);

@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
             exit;
         }
 
-        $sql_check_menu_exist = "SELECT * FROM menu WHERE MenuID = '$menuID'";
+        $sql_check_menu_exist = "SELECT * FROM category WHERE MenuID = '$menuID'";
         $result_check_menu_exist = $conn->query($sql_check_menu_exist);
         
         if ($result_check_menu_exist->num_rows == 0) {
@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
             exit;
         }
 
-        $sql = "UPDATE menu SET MenuName = '$menuName', Image = '$image' WHERE MenuID = '$menuID'";
+        $sql = "UPDATE category SET MenuName = '$menuName', Image = '$image' WHERE MenuID = '$menuID'";
 
         if ($conn->query($sql) === TRUE) {
             $response = array('message' => 'Menu updated successfully', 'status' => 'success', 'data' => array('MenuID' => $menuID, 'MenuName' => $menuName, 'Image' => $image));

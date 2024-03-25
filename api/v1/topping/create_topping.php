@@ -50,15 +50,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $description = $data['Description'];
         $toppingID = $data['ToppingID'];
 
-        $sql = "INSERT INTO topping (ToppingID, Name, Description, Price) VALUES ('$toppingID', '$name', '$description', '$price')";
+        $check_query = "SELECT * FROM topping WHERE Name='$name'";
+        $result = $conn->query($check_query);
 
-        if ($conn->query($sql) === TRUE) {
-            $drinksID = $conn->insert_id;
-            $response = array('message' => 'Topping created successfully', 'status' => 'success', 'data' => array('ToppingID' => $toppingID, 'Name' => $name, 'Description' => $description, 'Price' => $price));
+        if ($result->num_rows > 0) {
+            $response = array('message' => 'Topping '. $name .'already exists', 'status' => 'error');
             echo json_encode($response);
         } else {
-            $response = array('message' => 'Failed to create topping', 'status' => 'error', 'error' => $conn->error);
-            echo json_encode($response);
+            $sql = "INSERT INTO topping (ToppingID, Name, Description, Price) VALUES ('$toppingID', '$name', '$description', '$price')";
+            if ($conn->query($sql) === TRUE) {
+                $drinksID = $conn->insert_id;
+                $response = array('message' => 'Topping '. $name .'created successfully', 'status' => 'success', 'data' => array('ToppingID' => $toppingID, 'Name' => $name, 'Description' => $description, 'Price' => $price));
+                echo json_encode($response);
+            } else {
+                $response = array('message' => 'Failed to create topping', 'status' => 'error', 'error' => $conn->error);
+                echo json_encode($response);
+            }
         }
     } else {
         $response = array('message' => 'Missing required information', 'status' => 'error');

@@ -1,7 +1,7 @@
 <?php
 require_once('db_connect.php');
 
-session_start(); // Bắt đầu phiên làm việc
+session_start(); 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Lấy dữ liệu từ request

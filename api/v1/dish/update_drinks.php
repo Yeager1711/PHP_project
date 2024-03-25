@@ -12,13 +12,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
         $image = $data['Image'];
         $menuID = $data['MenuID'];
 
-        $checkDrinksID = "SELECT * FROM drinks WHERE DrinksID = '$drinksID'";
+        $checkDrinksID = "SELECT * FROM dish WHERE DrinksID = '$drinksID'";
         $result = $conn->query($checkDrinksID);
         if ($result->num_rows == 0) {
             $response = array('message' => 'Drinks ID not found', 'status' => 'error');
             echo json_encode($response);
         } else {
-            $checkMenuID = "SELECT * FROM menu WHERE MenuID = '$menuID'";
+            $checkMenuID = "SELECT * FROM category WHERE MenuID = '$menuID'";
             $result = $conn->query($checkMenuID);
             if ($result->num_rows == 0) {
                 $response = array('message' => 'Menu ID not found', 'status' => 'error');
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
                     $response = array('message' => 'Price must be a valid number', 'status' => 'error');
                     echo json_encode($response);
                 } else {
-                    $sql = "UPDATE drinks SET DrinkName = '$drinksName', Price = '$price', Description = '$description', Image = '$image', MenuID = '$menuID' WHERE DrinksID = '$drinksID'";
+                    $sql = "UPDATE dish SET DrinkName = '$drinksName', Price = '$price', Description = '$description', Image = '$image', MenuID = '$menuID' WHERE DrinksID = '$drinksID'";
                     if ($conn->query($sql) === TRUE) {
                         $response = array('message' => 'Drinks updated successfully', 'status' => 'success', 'data' => array('DrinksID' => $drinksID, 'DrinksName' => $drinksName, 'Price' => $price, 'Description' => $description, 'Image' => $image, 'MenuID' => $menuID));
                         echo json_encode($response);

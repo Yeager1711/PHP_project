@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link rel="stylesheet" href="./scss/Global.css">
+    <link rel="stylesheet" href="./scss/cart.css">
+</head>
+
+<body>
+    <div class="cart">
+        <div class="cart-container">
+            <div class="header-cart">
+                <div class="status">
+                    <h3>Cart</h3>
+                    <div class="status-action">
+                        <div class="shop">
+                            <i class="fa-solid fa-shop"></i>
+                        </div>
+                        <div class="cart">
+                            <i class="fa-solid fa-cart-shopping arrow-status"></i>
+                        </div>
+                        <div class="checkout">
+                            <i class="fa-regular fa-credit-card"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="container-items">
+                    <div class="list-items">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Image</th>
+                                    <th>Product</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><i class="fa-solid fa-xmark"></i></td>
+                                    <td>
+                                       <img src="./image/product-1.jpg" alt="">
+                                    </td>
+                                    <td>
+                                        Product 1
+                                    </td>
+                                    <td>$10.00</td>
+                                    <td>
+                                        <input type="number" value="2">
+                                    </td>
+                                    <td>$20.00</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fa-solid fa-xmark"></i></td>
+                                    <td>
+                                        <img src="./image/product-2.jpg" alt="">
+                                     </td>
+                                    <td>Product 2</td>
+                                    <td>$15.00</td>
+                                    <td>
+                                        <input type="number" value="1">
+                                    </td>
+                                    <td>$15.00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="btn-update">Cập nhật </div>
+                    </div>
+
+                    <div class="value-items">
+                        <h3>Cart totals</h3>
+
+                        <div class="value">
+                            <div class="subtotal">
+                                <span>subtotal:</span>
+                                <p>$228.00</p>
+                            </div>
+
+                            <div class="total">
+                                <span>total:</span>
+                                <p>$228.00</p>
+                            </div>
+
+                            <div class="btn-checkout">
+                                <a href="">
+                                    Proceed to checkout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+=
+
+</html>

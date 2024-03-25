@@ -1,5 +1,6 @@
 <?php
 require_once('../db_connect.php');
+
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (isset($_GET['DrinksID'])) { 
         $drinkId = $_GET['DrinksID']; 

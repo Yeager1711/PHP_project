@@ -18,14 +18,14 @@ function submitRegisterForm() {
 
         // Gửi dữ liệu đến API
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', './api/v1/create_account.php', true);
+        xhr.open('POST', './api/v1/account/create_account.php', true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.onreadystatechange = function() {
             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
                 var response = JSON.parse(xhr.responseText);
                 if (response.status === 'success') {
                     alert('Đăng ký thành công!');
-                    window.location.href = "./index.php";
+                    window.location.href = "./home.html";
                 } else {
                     alert('Đăng ký thất bại!');
                     // Thực hiện các hành động sau khi đăng ký thất bại

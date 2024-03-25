@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $image = $data['Image'];
         $menuID = $data['MenuID'];
 
-        $sql = "INSERT INTO drinks (DrinkName, Price, Description, Image, MenuID) VALUES ('$drinksName', '$price', '$description', '$image', '$menuID')";
+        $sql = "INSERT INTO dish (DrinkName, Price, Description, Image, MenuID) VALUES ('$drinksName', '$price', '$description', '$image', '$menuID')";
 
         if ($conn->query($sql) === TRUE) {
             $drinksID = $conn->insert_id;

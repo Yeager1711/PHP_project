@@ -1,5 +1,5 @@
 <?php
-require_once('db_connect.php');
+require_once('../db_connect.php');
 
 session_start(); // Bắt đầu phiên làm việc
 

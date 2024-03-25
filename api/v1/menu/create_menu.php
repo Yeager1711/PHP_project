@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
 
-        $sql = "INSERT INTO menu (MenuName, Image) VALUES ('$menuname', '$image')";
+        $sql = "INSERT INTO category (MenuName, Image) VALUES ('$menuname', '$image')";
 
         if ($conn->query($sql) === TRUE) {
             $accountID = $conn->insert_id;

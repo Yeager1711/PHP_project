@@ -175,23 +175,27 @@
   height: 100%;
 }
 .cart .cart-container .content .container-items .value-items .value .subtotal,
-.cart .cart-container .content .container-items .value-items .value .total {
+.cart .cart-container .content .container-items .value-items .value .total,
+.cart .cart-container .content .container-items .value-items .value .table {
   display: flex;
   align-items: center;
   padding: 1rem;
 }
 .cart .cart-container .content .container-items .value-items .value .subtotal:nth-child(1),
-.cart .cart-container .content .container-items .value-items .value .total:nth-child(1) {
+.cart .cart-container .content .container-items .value-items .value .total:nth-child(1),
+.cart .cart-container .content .container-items .value-items .value .table:nth-child(1) {
   width: 100%;
   border-bottom: 0.1rem dashed #dbdbdb;
 }
 .cart .cart-container .content .container-items .value-items .value .subtotal span,
-.cart .cart-container .content .container-items .value-items .value .total span {
+.cart .cart-container .content .container-items .value-items .value .total span,
+.cart .cart-container .content .container-items .value-items .value .table span {
   font-size: 1.4rem;
   text-transform: capitalize;
 }
 .cart .cart-container .content .container-items .value-items .value .subtotal p,
-.cart .cart-container .content .container-items .value-items .value .total p {
+.cart .cart-container .content .container-items .value-items .value .total p,
+.cart .cart-container .content .container-items .value-items .value .table p {
   font-size: 1.4rem;
   padding: 0 0.7rem;
 }

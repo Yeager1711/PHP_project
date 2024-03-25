@@ -135,45 +135,45 @@
 .checkout .checkout-container .content .container-items .value-items .value .subtotal,
 .checkout .checkout-container .content .container-items .value-items .value .total,
 .checkout .checkout-container .content .container-items .value-items .value .tax,
-.checkout .checkout-container .content .container-items .value-items .value .ship {
+.checkout .checkout-container .content .container-items .value-items .value .table {
   padding-top: 1rem;
 }
 .checkout .checkout-container .content .container-items .value-items .value .subtotal:nth-child(1),
 .checkout .checkout-container .content .container-items .value-items .value .total:nth-child(1),
 .checkout .checkout-container .content .container-items .value-items .value .tax:nth-child(1),
-.checkout .checkout-container .content .container-items .value-items .value .ship:nth-child(1) {
+.checkout .checkout-container .content .container-items .value-items .value .table:nth-child(1) {
   width: 100%;
   border-bottom: 0.1rem dashed #dbdbdb;
 }
 .checkout .checkout-container .content .container-items .value-items .value .subtotal:nth-child(2),
 .checkout .checkout-container .content .container-items .value-items .value .total:nth-child(2),
 .checkout .checkout-container .content .container-items .value-items .value .tax:nth-child(2),
-.checkout .checkout-container .content .container-items .value-items .value .ship:nth-child(2) {
+.checkout .checkout-container .content .container-items .value-items .value .table:nth-child(2) {
   display: flex;
 }
 .checkout .checkout-container .content .container-items .value-items .value .subtotal:nth-child(3),
 .checkout .checkout-container .content .container-items .value-items .value .total:nth-child(3),
 .checkout .checkout-container .content .container-items .value-items .value .tax:nth-child(3),
-.checkout .checkout-container .content .container-items .value-items .value .ship:nth-child(3) {
+.checkout .checkout-container .content .container-items .value-items .value .table:nth-child(3) {
   display: flex;
 }
 .checkout .checkout-container .content .container-items .value-items .value .subtotal:nth-child(4),
 .checkout .checkout-container .content .container-items .value-items .value .total:nth-child(4),
 .checkout .checkout-container .content .container-items .value-items .value .tax:nth-child(4),
-.checkout .checkout-container .content .container-items .value-items .value .ship:nth-child(4) {
+.checkout .checkout-container .content .container-items .value-items .value .table:nth-child(4) {
   display: flex;
 }
 .checkout .checkout-container .content .container-items .value-items .value .subtotal span,
 .checkout .checkout-container .content .container-items .value-items .value .total span,
 .checkout .checkout-container .content .container-items .value-items .value .tax span,
-.checkout .checkout-container .content .container-items .value-items .value .ship span {
+.checkout .checkout-container .content .container-items .value-items .value .table span {
   font-size: 1.4rem;
   text-transform: capitalize;
 }
 .checkout .checkout-container .content .container-items .value-items .value .subtotal p,
 .checkout .checkout-container .content .container-items .value-items .value .total p,
 .checkout .checkout-container .content .container-items .value-items .value .tax p,
-.checkout .checkout-container .content .container-items .value-items .value .ship p {
+.checkout .checkout-container .content .container-items .value-items .value .table p {
   font-size: 1.4rem;
   padding: 0 0.7rem;
 }

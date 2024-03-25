@@ -9,21 +9,23 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <link rel="stylesheet" href="./scss/Global.css">
-    <link rel="stylesheet" href="./scss/cart.css">
+    <link rel="stylesheet" href="./scss/checkout.css">
 </head>
 
 <body>
-    <div class="cart">
-        <div class="cart-container">
-            <div class="header-cart">
+    <div class="checkout">
+        <div class="checkout-container">
+            <div class="header-checkout">
                 <div class="status">
-                    <h3>Cart</h3>
+                    <h3>Orders</h3>
                     <div class="status-action">
                         <div class="shop">
                             <i class="fa-solid fa-shop"></i>
                         </div>
                         <div class="cart">
-                            <i class="fa-solid fa-cart-shopping arrow-status"></i>
+                            <a href="./carts.html">
+                                <i class="fa-solid fa-cart-shopping arrow-status"></i>
+                            </a>
                         </div>
                         <div class="checkout">
                             <i class="fa-regular fa-credit-card"></i>
@@ -32,7 +34,7 @@
                 </div>
             </div>
 
-            <div class="content">
+            <section class="content">
                 <div class="container-items">
                     <div class="list-items">
                         <table>
@@ -50,7 +52,7 @@
                                 <tr>
                                     <td><i class="fa-solid fa-xmark"></i></td>
                                     <td>
-                                       <img src="./image/product-1.jpg" alt="">
+                                        <img src="./image/product-1.jpg" alt="">
                                     </td>
                                     <td>
                                         Product 1
@@ -65,7 +67,7 @@
                                     <td><i class="fa-solid fa-xmark"></i></td>
                                     <td>
                                         <img src="./image/product-2.jpg" alt="">
-                                     </td>
+                                    </td>
                                     <td>Product 2</td>
                                     <td>$15.00</td>
                                     <td>
@@ -75,12 +77,33 @@
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
 
-                        <div class="btn-update">Cập nhật </div>
+                    <div class="info-user">
+                        <div class="box">
+                            <span>
+                                Địa chỉ: 
+                                <p>P25, Quận Bình Thạnh, Thành phố Hồ Chí Minh</p>
+                            </span>
+                        </div>
+
+                        <div class="box">
+                            <span>
+                                Họ tên:  
+                                <p>Lâm Trung Tính</p>
+                            </span>
+                        </div>
+
+                        <div class="box">
+                            <span>
+                                Số điện thoại:  
+                                <p>123xxx456xxx789</p>
+                            </span>
+                        </div>
                     </div>
 
                     <div class="value-items">
-                        <h3>Cart totals</h3>
+                        <h3>Orders totals</h3>
 
                         <div class="value">
                             <div class="subtotal">
@@ -88,19 +111,33 @@
                                 <p>$228.00</p>
                             </div>
 
+                            <div class="tax">
+                                <span>tax:</span>
+                                <p>10%</p>
+                            </div>
+
+                            <div class="ship">
+                                <span>ship:</span>
+                                <p>23.000đ</p>
+                            </div>
+
                             <div class="total">
                                 <span>total:</span>
                                 <p>$228.00</p>
                             </div>
 
-                            <div class="btn-checkout">
-                                <a href="./checkout.html">
-                                    Proceed to checkout</a>
-                            </div>
+
                         </div>
                     </div>
+
+                    <div class="btn-checkout">
+                        <a href="./checkout.html">
+                            Proceed to checkout</a>
+                    </div>
                 </div>
-            </div>
+
+
+            </section>
         </div>
 </body>
 =

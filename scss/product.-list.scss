@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
+.list-product {
+    padding: 0 10%;
+
+    .wrapper-list {
+        display: flex;
+        gap: 1rem;
+
+        .category {
+            padding: 1.5rem;
+
+            h3 {
+                font-size: 2rem;
+            }
+
+            a {
+                padding: .5rem;
+                font-size: 1.5rem;
+                display: block;
+
+                &:hover {
+                    background: #dbdbdb;
+                }
+            }
+        }
+
+        .list {
+            flex: 1 1 42rem;
+            padding: 1.5rem 0;
+
+            h3 {
+                font-size: 2rem;
+            }
+
+            .container {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(28rem, 1fr));
+                gap: 1.5rem;
+
+                .box {
+                    padding: 1.5rem;
+
+                    .image {
+                        max-width: 100%;
+                        object-fit: cover;
+
+                        img {
+                            width: 100%;
+                            object-fit: cover;
+                        }
+                    }
+
+                    h3 {
+                        font-size: 1.8rem;
+                        margin-bottom: .5rem;
+                    }
+
+                    span {
+                        margin-top: .5rem;
+                        font-size: 1.5rem;
+                        color: var(--orange);
+                        font-weight: 550;
+                    }
+                }
+            }
+        }
+    }
+}

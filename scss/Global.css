@@ -1,6 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Lora:wght@500;600&family=Poppins:wght@400;500&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Satisfy&display=swap");
 :root {
   --green:#27ae60;
   --orange:#f39c12;
@@ -84,7 +82,9 @@ section {
 }
 
 .title-header {
-  font-weight: 800;
+  margin-top: 3rem;
+  font-size: 2rem;
+  font-weight: 600;
 }
 
 .empty {
@@ -209,7 +209,6 @@ section {
 .swal-modal .swal-footer .swal-button-container .swal-button:hover {
   opacity: 0.8;
 }
-
 /* media queries  */
 @media (max-width: 991px) {
   html {

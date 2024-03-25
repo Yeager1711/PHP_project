@@ -49,4 +49,12 @@ document.querySelector('.home').onmouseleave = () => {
     document.querySelector('.home .home-parallax-img').style.transform = `translateX(0px) translateY(0px)`;
 }
 
+var input = document.getElementById('quantityInput');
+    
+input.addEventListener('input', function() {
+    var value = parseInt(input.value);
 
+    if (value < 1 || isNaN(value)) {
+        input.value = 1;
+    }
+});

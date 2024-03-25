@@ -1,0 +1,179 @@
+.details {
+  display: block;
+  min-height: 100vh;
+  background: #fff;
+  padding: 3rem 0;
+}
+.details .detail-container {
+  margin: auto;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  width: 90rem;
+}
+.details .detail-container .image {
+  width: 50rem;
+  border-radius: 50%;
+}
+.details .detail-container .image img {
+  width: 100%;
+  border-radius: 50%;
+}
+.details .detail-container .content {
+  width: 100%;
+}
+.details .detail-container .content .drinkName {
+  font-size: 2.3rem;
+}
+.details .detail-container .content .menu {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0;
+  font-size: 1.4rem;
+  text-transform: capitalize;
+  font-weight: 550;
+}
+.details .detail-container .content .menu p {
+  margin-left: 0.3rem;
+  font-weight: normal;
+}
+.details .detail-container .content .price {
+  font-size: 1.7rem;
+  display: flex;
+  padding: 0.5rem 0;
+}
+.details .detail-container .content .price p {
+  font-size: 1.7rem;
+  color: #c1452f;
+  font-weight: 600;
+  margin-left: 0.3rem;
+}
+.details .detail-container .content .choose-size {
+  margin: 1rem 0;
+}
+.details .detail-container .content .choose-size h3 {
+  font-size: 1.5rem;
+}
+.details .detail-container .content .choose-size .wrapper-size {
+  display: flex;
+  gap: 1.5rem;
+  text-align: center;
+}
+.details .detail-container .content .choose-size .wrapper-size span {
+  font-size: 1.4rem;
+  border: 0.1rem solid #dbdbdb;
+  border-radius: 1rem;
+  padding: 0.5rem 1.5rem;
+  cursor: pointer;
+}
+.details .detail-container .content .choose-topping {
+  margin: 1rem 0;
+}
+.details .detail-container .content .choose-topping h3 {
+  font-size: 1.5rem;
+}
+.details .detail-container .content .choose-topping .wrapper-sizeTopping {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: 1.5rem;
+  text-align: center;
+}
+.details .detail-container .content .choose-topping .wrapper-sizeTopping span {
+  font-size: 1.4rem;
+  border: 0.1rem solid #dbdbdb;
+  border-radius: 1rem;
+  padding: 0.5rem 1.5rem;
+  cursor: pointer;
+}
+.details .detail-container .content .quantity-selector {
+  margin-top: 1.5rem;
+  display: flex;
+  width: 5rem;
+  border-radius: 0.5rem;
+  align-items: center;
+  background: #fff;
+}
+.details .detail-container .content .quantity-selector .quantity-btn {
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  border: none;
+  background: #fff;
+  cursor: pointer;
+}
+.details .detail-container .content .quantity-selector .quantity-input {
+  width: 3rem;
+  background: #fff;
+  font-size: 1.7rem;
+  padding: 0.5rem;
+  text-align: center;
+  border: none;
+}
+.details .detail-container .content .quantity-selector .decrease-btn {
+  padding: 0.6rem 1.5rem;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  font-size: 1.7rem;
+}
+.details .detail-container .content .quantity-selector .increase-btn {
+  padding: 0.6rem 1.5rem;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  font-size: 1.7rem;
+}
+.details .detail-container .content .btn-addToCart {
+  margin-top: 1rem;
+  padding: 0.7rem 2.5rem;
+  border-radius: 1rem;
+  background: #27ae60;
+  color: #fff;
+  font-weight: 550;
+  cursor: pointer;
+}
+.details .detail-container .content .btn-addToCart:hover {
+  transform: scale(0.98);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
+}
+.details .describle h3 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+.details .describle p {
+  font-size: 1.4rem;
+}
+.details .container-list-product {
+  margin-top: 5rem;
+  padding: 0 5%;
+}
+.details .container-list-product .box {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 1rem;
+}
+.details .container-list-product .box:hover {
+  border: 0.1rem solid #274dae;
+  transition: 0.3s linear;
+}
+.details .container-list-product .box .image {
+  width: 10rem;
+  height: 10rem;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.details .container-list-product .box .image img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 100%;
+}
+.details .container-list-product .box .info-drink {
+  font-size: 1.6rem;
+}
+.details .container-list-product .box .info-drink span {
+  display: flex;
+  align-items: center;
+}
+.details .container-list-product .box .info-drink span p {
+  padding-left: 0.3rem;
+}/*# sourceMappingURL=detail.css.map */

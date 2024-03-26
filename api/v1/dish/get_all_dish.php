@@ -12,7 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $response[] = $row;
         }
     }
-
     echo json_encode($response);
 }
 

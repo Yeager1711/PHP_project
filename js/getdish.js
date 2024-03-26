@@ -1,4 +1,4 @@
-fetch('./api/v1/dish/get_all_drinks.php')
+fetch('./api/v1/dish/get_all_dish.php')
 .then(response => response.json())
 .then(data => {
     // Lặp qua dữ liệu nhận được từ API và tạo HTML tương ứng

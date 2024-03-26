@@ -4,15 +4,18 @@ require_once('../db_connect.php');
 if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     $data = json_decode(file_get_contents("php://input"), true);
 
-    if (isset($data['DrinksID']) && isset($data['DrinkName']) && isset($data['Price']) && isset($data['Description']) && isset($data['Image']) && isset($data['MenuID'])) {
-        $drinksID = $data['DrinksID'];
-        $drinksName = $data['DrinkName'];
+    if (isset($data['DishID']) && isset($data['DishName']) && isset($data['Price']) && isset($data['Description']) && isset($data['Amount']) && isset($data['Image']) && isset($data['Status']) && isset($data['CateID']) && isset($data['ToppingID'])) {
+        $dishID = $data['DishID'];
+        $dishName = $data['DishName'];
         $price = $data['Price'];
         $description = $data['Description'];
+        $amount = $data['Amount'];
         $image = $data['Image'];
-        $menuID = $data['MenuID'];
+        $status = $data['Status'];
+        $cateID = $data['CateID'];
+        $toppingID = $data['ToppingID'];
 
-        $checkDrinksID = "SELECT * FROM drinks WHERE DrinksID = '$drinksID'";
+        $checkDrinksID = "SELECT * FROM dish WHERE DrinksID = '$drinksID'";
         $result = $conn->query($checkDrinksID);
         if ($result->num_rows == 0) {
             $response = array('message' => 'Drinks ID not found', 'status' => 'error');

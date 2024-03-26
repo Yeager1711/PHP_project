@@ -2,7 +2,7 @@ fetch('./api/v1/dish/get_all_drinks.php')
 .then(response => response.json())
 .then(data => {
     // Lặp qua dữ liệu nhận được từ API và tạo HTML tương ứng
-    data.forEach(drink => {
+    data.forEach(dish => {
         // Tạo một thẻ swiper-slide mới
         var swiperSlide = document.createElement('div');
         swiperSlide.classList.add('swiper-slide');
@@ -15,7 +15,7 @@ fetch('./api/v1/dish/get_all_drinks.php')
         productImage.classList.add('image-product');
 
         var image = document.createElement('img');
-        image.src = drink.Image;
+        image.src = dish.Image;
         image.alt = '';
 
         productImage.appendChild(image);
@@ -24,10 +24,10 @@ fetch('./api/v1/dish/get_all_drinks.php')
         productContent.classList.add('content');
 
         var productName = document.createElement('span');
-        productName.innerText = drink.DrinkName;
+        productName.innerText = dish.DishName;
 
         var productPrice = document.createElement('span');
-        productPrice.innerText = drink.Price + 'đ';
+        productPrice.innerText = dish.Price + 'đ';
 
         var addToCartButton = document.createElement('div');
         addToCartButton.classList.add('btn-addToCart');

@@ -1,0 +1,125 @@
+
+Enum "payment_PaymentMethod_enum" {
+  "TienMat"
+  "TheNganHang"
+  "ViDienTu"
+}
+
+Table "account" {
+  "AccountID" int [pk, not null]
+  "FullName" varchar(500) [not null]
+  "UserName" varchar(50) [not null]
+  "Password" varchar(50) [not null]
+  "Email" varchar(500) [not null]
+  "RoleID" int [default: NULL]
+  "ThumbnailID" int [default: NULL]
+}
+
+Table "billdetail" {
+  "BillDetailID" int [pk, not null]
+  "ProductOrderID" int [not null]
+  "DrinksID" int [not null]
+  "Amount" int [not null]
+}
+
+Table "booktable" {
+  "BookTableID" int [pk, not null]
+  "SeatBookedID" int [not null]
+  "TableBookDate" datetime [not null]
+  "PeopleAmount" int [not null]
+}
+
+Table "cart" {
+  "CartID" int [pk, not null]
+  "AccountID" int [not null]
+}
+
+Table "category" {
+  "MenuID" int [pk, not null]
+  "MenuName" varchar(50) [not null]
+  "Image" text [not null]
+}
+
+Table "dish" {
+  "DrinksID" int [pk, not null]
+  "DrinkName" varchar(50) [not null]
+  "Price" varchar(50) [not null]
+  "Describe" text
+  "Amount" int [not null]
+  "Image" text [not null]
+  "Status" varchar(250) [not null]
+  "MenuID" int [default: NULL]
+  "ToppingID" int [default: NULL]
+}
+
+Table "payment" {
+  "PaymentID" int [pk, not null]
+  "SeatBookedID" int [not null]
+  "TotalAmount" decimal(10,2) [not null]
+  "PaymentMethod" payment_PaymentMethod_enum [not null]
+}
+
+Table "paymentdetail" {
+  "PaymentDetailID" int [pk, not null]
+  "PaymentID" int [not null]
+  "DrinksID" int [not null]
+  "Amount" int [not null]
+}
+
+Table "productorder" {
+  "ProductOrderID" int [pk, not null]
+  "SeatBookedID" int [not null]
+  "AccountID" int [not null]
+}
+
+Table "role" {
+  "RoleID" int [pk, not null]
+  "Name" varchar(50) [not null]
+}
+
+Table "seatbooked" {
+  "SeatBookedID" int [pk, not null]
+  "AccountID" int [not null]
+  "SeatBookDate" datetime [not null]
+  "TotalAmount" decimal(10,2) [not null]
+}
+
+Table "thumbnail" {
+  "ThumbnailID" int [pk, not null]
+  "Image" varchar(255) [default: NULL]
+}
+
+Table "topping" {
+  "ToppingID" int [pk, not null]
+  "Name" varchar(255) [default: NULL]
+  "Description" varchar(255) [default: NULL]
+  "Price" decimal(10,2) [default: NULL]
+}
+
+Ref "account_ibfk_1":"role"."RoleID" < "account"."RoleID"
+
+Ref "account_ibfk_2":"thumbnail"."ThumbnailID" < "account"."ThumbnailID"
+
+Ref "billdetail_ibfk_1":"productorder"."ProductOrderID" < "billdetail"."ProductOrderID"
+
+Ref "billdetail_ibfk_2":"dish"."DrinksID" < "billdetail"."DrinksID"
+
+Ref "booktable_ibfk_1":"seatbooked"."SeatBookedID" < "booktable"."SeatBookedID"
+
+Ref "cart_ibfk_1":"account"."AccountID" < "cart"."AccountID"
+
+Ref "dish_ibfk_1":"category"."MenuID" < "dish"."MenuID"
+
+Ref "dish_ibfk_2":"topping"."ToppingID" < "dish"."ToppingID"
+
+Ref "payment_ibfk_1":"seatbooked"."SeatBookedID" < "payment"."SeatBookedID"
+
+Ref "paymentdetail_ibfk_1":"payment"."PaymentID" < "paymentdetail"."PaymentID"
+
+Ref "paymentdetail_ibfk_2":"dish"."DrinksID" < "paymentdetail"."DrinksID"
+
+Ref "productorder_ibfk_1":"seatbooked"."SeatBookedID" < "productorder"."SeatBookedID"
+
+Ref "productorder_ibfk_2":"account"."AccountID" < "productorder"."AccountID"
+
+Ref "seatbooked_ibfk_1":"account"."AccountID" < "seatbooked"."AccountID"

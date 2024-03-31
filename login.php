@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,8 +10,10 @@
     <link rel="stylesheet" href="./css/login.css">
 
 </head>
+
 <body>
-    
+
+
     <div class="wrapper-login">
         <div class="wrapper-container">
             <form action="">
@@ -23,10 +26,10 @@
                     <span>Password</span>
                     <input type="text" placeholder="Enter your password..." name="password" id="passwordInput" required>
                 </div>
-                
+
                 <div class="controller-btn">
                     <a href="./register.php">Chưa có tài khoản? Click đăng ký!</a>
-                    <button type="button" class="btn-submitLogin" onclick=submitLoginForm()>
+                    <button type="button" class="btn-login" onclick=submitLoginForm()>
                         Đăng nhập
                     </button>
                 </div>
@@ -35,6 +38,45 @@
     </div>
 </body>
 
-<script src="js/login.js"></script>
+<script>
+    function submitLoginForm() {
+        var registerForm = document.getElementById('registerForm');
+        var submitBtn = document.querySelector('.btn-login');
+
+        submitBtn.addEventListener('click', function() {
+
+            var userName = document.getElementById('userNameInput').value;
+            var password = document.getElementById('passwordInput').value;
+
+            var data = {
+                UserName: userName,
+                Password: password
+            };
+
+            // Gửi dữ liệu đến API
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', './api/v1/account/login_account.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    if (response.status === 'success') {
+                        localStorage.setItem('token', response.token);
+                        // alert('Đăng nhập thành công!');
+                        window.location.href = "../bookingcoffee/index.php";
+                    } else {
+                        alert('Đăng nhập thất bại!');
+                        window.location.href = "./login.php";
+                    }
+                }
+            };
+            xhr.send(JSON.stringify(data));
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        submitLoginForm();
+    });
+</script>
 
 </html>

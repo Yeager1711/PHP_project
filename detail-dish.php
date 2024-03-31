@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Details-product</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <link rel="stylesheet" href="./css/Global.css">
+    <link rel="stylesheet" href="./scss/detail.css">
+    <!-- <script src="./js/details.js" defer></script> -->
+</head>
+
+<body>
+
+    <?php
+    if (isset($_GET["DishID"])) {
+        $dishID = $_GET["DishID"];
+    } else {
+        echo "Không tìm thấy DishID!";
+        exit;
+    }
+    ?>
+
+    <div class="details">
+        <div class="detail-container">
+            <div class="image">
+                <img src="" id="productImage" alt="">
+            </div>
+
+            <div class="content">
+                <h3 class="drinkName" id="productName">Delicious Food</h3>
+                <span class="menu" id="productType">Loại: <p>sản phẩm loại 1</p></span>
+                <span class="price" id="productPrice">
+                    Giá:
+                    <p>49.000đ</p>
+                </span>
+
+                <div class="choose-size">
+                    <h3>Chọn size (bắt buộc)</h3>
+
+                    <div class="wrapper-size">
+                        <span>Nhỏ + 0đ</span>
+                        <span>Vừa + 10.000đ</span>
+                        <span>Lớn + 15.000đ</span>
+                    </div>
+                </div>
+
+                <div class="choose-topping">
+                    <h3>Chọn size (bắt buộc)</h3>
+
+                    <div class="wrapper-sizeTopping">
+                        <span>Không + 0đ</span>
+                        <span>Trái vải + 10.000đ</span>
+                        <span>Đào miếng + 10.000d</span>
+                        <span>Trân châu trắng + 10.000d</span>
+                    </div>
+                </div>
+
+                <div class="quantity-selector">
+                    <button class="quantity-btn decrease-btn">-</button>
+                    <input type="text" class="quantity-input" value="1">
+                    <button class="quantity-btn increase-btn">+</button>
+                </div>
+
+                <button class="btn-addToCart">
+                    Thêm vào giỏ hàng
+                </button>
+            </div>
+        </div>
+
+        <section class="describle">
+            <h3 class="title-header">Mô tả sản phẩm</h3>
+            <p id="productDescription">
+                Lorem isectionsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore
+                et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                culpa qui officia deserunt mollit anim id est laborum."
+            </p>
+        </section>
+
+        <div class="container-list-product">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper" id="relatedProducts">
+                    <!-- Các sản phẩm liên quan sẽ được cập nhật bằng JavaScript -->
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            slidesPerView: 4,
+            spaceBetween: 15,
+            loop: true,
+            autoplay: {
+                delay: 2300,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                dynamicBullets: true,
+            },
+            breakpoints: {
+                420: {
+                    slidesPerView: 1.6,
+                    spaceBetween: 10,
+                },
+
+                768: {
+                    slidesPerView: 2.5,
+                    spaceBetween: 10,
+                },
+
+                992: {
+                    slidesPerView: 3.6,
+                    spaceBetween: 20,
+                },
+
+                1200: {
+                    slidesPerView: 3.8,
+                    spaceBetween: 30,
+                },
+            },
+        });
+
+        const decreaseBtn = document.querySelector('.decrease-btn');
+        const increaseBtn = document.querySelector('.increase-btn');
+        const quantityInput = document.querySelector('.quantity-input');
+
+        decreaseBtn.addEventListener('click', function() {
+            let currentValue = parseInt(quantityInput.value);
+
+            if (currentValue > 1) {
+                quantityInput.value = currentValue - 1
+            }
+        })
+
+        increaseBtn.addEventListener('click', function() {
+            let currentValue = parseInt(quantityInput.value);
+            quantityInput.value = currentValue + 1;
+        })
+
+        fetch('./api/v1/dish/get_dish_by_id.php?DishID=<?php echo $_GET["DishID"]; ?>')
+            .then(response => response.json())
+            .then(data => {
+               console.log(data);
+                const productImage = document.getElementById('productImage');
+                const productName = document.getElementById('productName');
+                const productType = document.getElementById('productType');
+                const productPrice = document.getElementById('productPrice');
+                const productDescription = document.getElementById('productDescription');
+
+                productImage.src = data.Image;
+                productName.innerText = data.DishName;
+                productType.innerHTML = 'Loại: <p>' + data.CateID + '</p>';
+                productPrice.innerHTML = 'Giá: <p>' + data.Price + 'đ</p>';
+                productDescription.innerText = data.Description;
+            })
+            .catch(error => console.log(error));
+    </script>
+
+</body>
+
+</html>

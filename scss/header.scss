@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    padding: 2rem 10%;
+    justify-content: space-between;
+    z-index: 99;
+
+    .logo {
+        display: flex;
+        align-items: center;
+        font-size: 2rem;
+        color: #27ae60;
+        font-weight: 550;
+    }
+
+    .navbar {
+        a {
+            padding: .7rem 1.5rem;
+            font-size: 1.5rem;
+            text-transform: capitalize;
+            margin: 0 1rem;
+
+            &:hover {
+                background: #27ae60;
+                color: #fff;
+                border-radius: 1rem;
+            }
+        }
+    }
+
+    .icons {
+        display: flex;
+        align-items: center;
+
+        div,
+        a {
+            margin: 0 .5rem;
+            padding: 1rem;
+            font-size: 1.7rem;
+
+            &:hover {
+                background: #27ae60;
+                color: #fff;
+                border-radius: 1rem;
+            }
+        }
+    }
+}

@@ -29,13 +29,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $email = $data['Email'];
         $username = $data['UserName'];
         $password = $data['Password'];
-        $roleID = "8895cda3-548d-4cca-808c-6053256da06e"; // Cố định giá trị RoleID là 2
+        $roleID = "8895cda3-548d-4cca-808c-6053256da06e";
 
         // Kiểm tra xem người dùng đã đăng nhập hay chưa
         if (isset($_SESSION['fullname'])) {
             $response = array('message' => 'You are already registered and logged in', 'status' => 'error');
             echo json_encode($response);
-            exit(); // Dừng thực thi mã
+            exit(); 
+        }
+
+        // Kiểm tra xem username đã tồn tại chưa
+        $checkUsernameQuery = "SELECT * FROM account WHERE UserName='$username'";
+        $checkUsernameResult = $conn->query($checkUsernameQuery);
+
+        // Kiểm tra xem email đã tồn tại chưa
+        $checkEmailQuery = "SELECT * FROM account WHERE Email='$email'";
+        $checkEmailResult = $conn->query($checkEmailQuery);
+
+        if ($checkUsernameResult->num_rows > 0) {
+            // Nếu username đã tồn tại
+            $response = array('message' => 'Username đã tồn tại', 'status' => 'error');
+            echo json_encode($response);
+            exit(); 
+        }
+
+        if ($checkEmailResult->num_rows > 0) {
+            // Nếu email đã tồn tại
+            $response = array('message' => 'Email đã tồn tại', 'status' => 'error');
+            echo json_encode($response);
+            exit(); 
         }
 
         $accountID = generateAccountID();

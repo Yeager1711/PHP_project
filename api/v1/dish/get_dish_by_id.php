@@ -3,10 +3,10 @@ require_once('../db_connect.php');
 
 // Xử lý phương thức GET
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    if (isset($_GET['DishID'])) { // Kiểm tra xem có tham số CateID được truyền vào không
-        $cateId = $_GET['DishID']; // Nhận giá trị CateID từ tham số truyền vào
+    if (isset($_GET['DishID'])) { 
+        $dishID = $_GET["DishID"];
+        $cateId = $_GET['DishID']; 
 
-        // Sử dụng câu truy vấn PREPARE để tránh lỗi SQL injection
         $stmt = $conn->prepare("SELECT * FROM dish WHERE DishID = ?");
         $stmt->bind_param("s", $cateId);
         $stmt->execute();
@@ -28,3 +28,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 $stmt->close();
 $conn->close();
 ?>
+

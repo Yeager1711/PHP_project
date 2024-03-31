@@ -23,25 +23,12 @@
 </head>
 
 <body>
-    <header class="header">
-        <a href="index.html" class="logo"> <i class="ri-store-2-line"></i>The 4Koffee</a>
 
-        <nav class="navbar">
-            <a href="#home">home</a>
-            <a href="#about">about</a>
-            <a href="#popular">popular</a>
-            <a href="#menu">menu</a>
-            <a href="#order">order</a>
-            <a href="#blogs">blogs</a>
-        </nav>
-
-        <div class="icons">
-            <div id="menu-btn" class="ri-menu-line"></div>
-            <a href="search-btn" class="ri-search-line"></a>
-            <a href="cart-btn" class="ri-shopping-cart-line"></a>
-            <a href="./register.html" class="ri-user-line"></a>
-        </div>
-    </header>
+    <!-- header -->
+    <?php
+    include_once('header.php');
+    ?>
+    <!-- ------ -->
 
     <section class="home" id="home">
         <div class="image">
@@ -61,7 +48,7 @@
     <section class="product">
         <div class="product-container">
             <!-- Coffee -->
-    
+
             <div class="banner">
                 <div class="image">
                     <img src="./image/product-banner.jpg" alt="">
@@ -94,19 +81,76 @@
 
 
             <div class="list-CoffeContainer">
-                <h3 class="title-header">Danh sách trà</h3>
-    
+                <h3 class="title-header">Danh sách Coffee</h3>
+
                 <div class="swiper mySwiper">
                     <div class="swiper-wrapper" id="productList">
-                        <!-- Sẽ được cập nhật bằng JavaScript -->
+
                     </div>
                 </div>
-    
-            
+
+
             </div>
         </div>
     </section>
-    <script src="js/getdish.js"></script>
+    <script>
+        fetch('./api/v1/dish/get_all_dish.php')
+            .then(response => response.json())
+            .then(data => {
+                // Lặp qua dữ liệu nhận được từ API và tạo HTML tương ứng
+                data.forEach(dish => {
+                    // Tạo một thẻ swiper-slide mới
+                    var swiperSlide = document.createElement('div');
+                    swiperSlide.classList.add('swiper-slide');
+
+                    // Tạo HTML cho sản phẩm
+                    var productBox = document.createElement('div');
+                    productBox.classList.add('box');
+
+                    var productImage = document.createElement('div');
+                    productImage.classList.add('image-product');
+
+                    var image = document.createElement('img');
+                    image.src = dish.Image;
+                    image.alt = '';
+
+                    productImage.appendChild(image);
+
+                    var productContent = document.createElement('div');
+                    productContent.classList.add('content');
+
+                    var productName = document.createElement('span');
+                    productName.innerText = dish.DishName;
+
+                    var productPrice = document.createElement('span');
+                    productPrice.innerText = dish.Price + 'đ';
+
+                    var addToCartButton = document.createElement('div');
+                    addToCartButton.classList.add('btn-addToCart');
+                    addToCartButton.innerText = 'Xem sản phẩm';
+
+                    // Event listener for the button to redirect to detail_product.php
+                    addToCartButton.addEventListener('click', function() {
+                        window.location.href = '/bookingcoffee/detail-dish.php?DishID=' + dish.DishID;
+                    });
+
+
+                    productContent.appendChild(productName);
+                    productContent.appendChild(productPrice);
+                    productContent.appendChild(addToCartButton);
+
+                    productBox.appendChild(productImage);
+                    productBox.appendChild(productContent);
+
+                    swiperSlide.appendChild(productBox);
+
+                    // Thêm swiper-slide mới vào swiper-wrapper hiện tại
+                    var swiperWrapper = document.querySelector('.swiper-wrapper');
+                    swiperWrapper.appendChild(swiperSlide);
+                });
+            })
+            .catch(error => console.log(error));
+    </script>
 
 
     <section class="blogs">
@@ -155,5 +199,7 @@
 
 
 </body>
+
+
 
 </html>

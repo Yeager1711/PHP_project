@@ -43,9 +43,10 @@
 .wrapper-login .wrapper-container form .controller-btn a:hover {
   text-decoration: underline;
 }
-.wrapper-login .wrapper-container form .controller-btn .btn-submitlogin {
+.wrapper-login .wrapper-container form .controller-btn .btn-login {
   display: inline-block;
   float: right;
+  cursor: pointer;
   background: #4531f2;
   color: #fff;
   padding: 0.7rem 3rem;

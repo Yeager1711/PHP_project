@@ -35,7 +35,7 @@
                 <span class="menu" id="productType">Loại: <p>sản phẩm loại 1</p></span>
                 <span class="price" id="productPrice">
                     Giá:
-                    <p>49.000đ</p>
+                    <p></p>
                 </span>
 
                 <div class="choose-size">
@@ -148,22 +148,30 @@
         })
 
         fetch('./api/v1/dish/get_dish_by_id.php?DishID=<?php echo $_GET["DishID"]; ?>')
-            .then(response => response.json())
-            .then(data => {
-               console.log(data);
-                const productImage = document.getElementById('productImage');
-                const productName = document.getElementById('productName');
-                const productType = document.getElementById('productType');
-                const productPrice = document.getElementById('productPrice');
-                const productDescription = document.getElementById('productDescription');
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
 
-                productImage.src = data.Image;
-                productName.innerText = data.DishName;
-                productType.innerHTML = 'Loại: <p>' + data.CateID + '</p>';
-                productPrice.innerHTML = 'Giá: <p>' + data.Price + 'đ</p>';
-                productDescription.innerText = data.Description;
-            })
-            .catch(error => console.log(error));
+    const productImage = document.getElementById('productImage');
+    const productName = document.getElementById('productName');
+    const productType = document.getElementById('productType');
+    const productPrice = document.getElementById('productPrice');
+    const productDescription = document.getElementById('productDescription');
+
+    if (Array.isArray(data) && data.length > 0) {
+      // Lấy phần tử đầu tiên trong mảng
+      const firstDish = data[0];
+
+      productImage.src = firstDish.Image || ''; 
+      productName.innerText = firstDish.DishName || '';
+      productType.innerHTML = 'Loại: <p>' + (firstDish.Type || '') + '</p>';
+      productPrice.innerHTML = 'Giá: <p>' + (firstDish.Price || '') + 'đ</p>';
+      productDescription.innerText = firstDish.Description || '';
+    } else {
+      console.log('Mảng dữ liệu trả về rỗng hoặc không hợp lệ.');
+    }
+  })
+  .catch(error => console.log(error));
     </script>
 
 </body>

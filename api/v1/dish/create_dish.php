@@ -55,16 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
     }
-    if (isset($data['ToppingID'])) {
-        $toppingID = $data['ToppingID'];
-        $checkToppingID = "SELECT * FROM topping WHERE ToppingID = '$toppingID'";
-        $result = $conn->query($checkToppingID);
-        if ($result->num_rows == 0) {
-            $response = array('message' => 'ToppingID not found', 'status' => 'error');
-            echo json_encode($response);
-            exit;
-        }
-    }
+  
 
     if (isset($data['DishName']) && isset($data['Price']) && isset($data['Description']) && isset($data['Amount']) && isset($data['Image']) && isset($data['Status']) && isset($data['CateID']) && isset($data['ToppingID'])) {
         $dishName = $data['DishName'];

@@ -254,7 +254,6 @@
         quantityInput.value = currentValue + 1;
     });
 
-
     </script>
 
 </body>

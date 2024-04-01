@@ -127,3 +127,16 @@
 .details .container-list-product .box .info-drink span p {
   padding-left: 0.3rem;
 }/*# sourceMappingURL=detail.css.map */
+.wrapper-size {
+  display: flex;
+  flex-direction: row;
+}
+
+.size-option {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.size-option.selected {
+  background-color: lightblue;
+}

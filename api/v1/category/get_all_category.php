@@ -2,7 +2,8 @@
 require_once('../db_connect.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $sql = "SELECT * FROM menu";
+
+    $sql = "SELECT * FROM category";
     $result = $conn->query($sql);
     $response = array();
 
@@ -16,5 +17,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 }
 
 $conn->close();
-?>
 ?>

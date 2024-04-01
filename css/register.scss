@@ -16,6 +16,17 @@
                 text-align: center;
                 font-size: 2.3rem;
             }
+
+            #error-message {
+                display: none;
+            }
+            
+            #error-message.active {
+                text-align: center;
+                display: block;
+                padding-top: .5rem;
+                font-size: 1.4rem;color: red;
+            }
             .box {
                 margin: 1.5rem 0;
 
@@ -36,7 +47,13 @@
                         font-size: 1.4rem;
                     }
                 }
+
+                
             }
+
+            
+            
+            
 
             .controller-btn {
                 a {
@@ -51,6 +68,7 @@
                 .btn-submitRegister {
                     display: inline-block;
                     float: right;
+                    cursor: pointer;
                     background: #4531f2;
                     color: #fff;
                     padding: .7rem 3rem;

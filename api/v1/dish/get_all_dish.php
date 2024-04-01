@@ -1,7 +1,8 @@
 <?php
 require_once('../db_connect.php');
-
+// Xử lý phương thức GET
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    // Tạo câu truy vấn SELECT
     $sql = "SELECT * FROM dish";
     $result = $conn->query($sql);
     $response = array();
@@ -11,7 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $response[] = $row;
         }
     }
-
     echo json_encode($response);
 }
 

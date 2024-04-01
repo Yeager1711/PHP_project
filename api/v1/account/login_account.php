@@ -18,15 +18,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
-            // Đăng nhập thành công
             $row = $result->fetch_assoc();
-
-            // Lưu thông tin đăng nhập vào session
           
+            // Tạo token mới cho người dùng
+            $token = generateToken();
+            
+            // Lưu thông tin người dùng vào session
             $_SESSION['username'] = $row['UserName'];
             $_SESSION['fullname'] = $row['FullName'];
 
-            $response = array('message' => 'Login successful', 'status' => 'success', 'data' => $row);
+            // Thiết lập thời gian hết hạn cho token (ví dụ: 1 giờ)
+            $expiry = time() + 3600; // 1 giờ từ thời điểm hiện tại
+            
+            // Lưu thông tin token và thời gian hết hạn vào session
+            $_SESSION['token'] = $token;
+            $_SESSION['expiry'] = $expiry;
+
+            $response = array('message' => 'Login successful', 'status' => 'success', 'data' => $row, 'token' => $token, 'expiry' => $expiry);
             echo json_encode($response);
         } else {
             // Đăng nhập thất bại
@@ -39,10 +47,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// ...
-// Các phương thức GET, PUT và DELETE hiện tại của bạn ở đây
-// ...
-
-// Đóng kết nối đến cơ sở dữ liệu
 $conn->close();
+
+// Hàm tạo token ngẫu nhiên
+function generateToken($length = 32) {
+    return bin2hex(random_bytes($length));
+}
 ?>

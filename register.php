@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,17 +8,20 @@
 
     <link rel="stylesheet" href="./css/Global.css">
     <link rel="stylesheet" href="./css/register.css">
+    <script src="./js/register_acc.js" defer></script>
 
 </head>
-<body>
 
+<body>
     <div class="wrapper-register">
         <div class="wrapper-container">
             <form id="registerForm">
                 <h3>Đăng ký tài khoản</h3>
+                <div id="error-message" style="color: red; padding: .5rem; font-size: 1.4rem"></div>
                 <div class="box">
                     <span>Full Name</span>
                     <input type="text" name="fullName" id="fullNameInput" required>
+
                 </div>
                 <div class="box">
                     <span>User name</span>
@@ -31,6 +35,8 @@
                     <span>Email</span>
                     <input type="email" name="email" id="emailInput" required>
                 </div>
+                <!-- Thêm phần hiển thị thông báo lỗi -->
+
                 <div class="controller-btn">
                     <a href="./login.php">Đăng nhập</a>
                     <button type="button" class="btn-submitRegister" onclick=submitRegisterForm()>
@@ -40,8 +46,8 @@
             </form>
         </div>
     </div>
+
 </body>
 
-<script src="js/register.js"></script>
 
 </html>

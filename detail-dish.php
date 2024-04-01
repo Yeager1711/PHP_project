@@ -31,8 +31,8 @@
             </div>
 
             <div class="content">
-                <h3 class="drinkName" id="productName">Delicious Food</h3>
-                <span class="menu" id="productType">Loại: <p>sản phẩm loại 1</p></span>
+                <h3 class="drinkName" id="productName"></h3>
+                <span class="menu" id="productType">Loại: <p></p></span>
                 <span class="price" id="productPrice">
                     Giá:
                     <p></p>
@@ -159,12 +159,28 @@
     const productDescription = document.getElementById('productDescription');
 
     if (Array.isArray(data) && data.length > 0) {
-      // Lấy phần tử đầu tiên trong mảng
       const firstDish = data[0];
 
-      productImage.src = firstDish.Image || ''; 
+      // Lấy danh sách danh mục từ một API khác
+      fetch('./api/v1/category/get_all_category.php')
+        .then(response => response.json())
+        .then(categoryData => {
+          // Tạo một đối tượng ánh xạ CateID với CateName
+          const categoryMap = {};
+          categoryData.forEach(category => {
+            categoryMap[category.CateID] = category.CateName;
+          });
+
+          // Lấy tên loại từ danh sách danh mục ánh xạ với CateID
+          const categoryName = categoryMap[firstDish.CateID] || '';
+
+          // Gán tên loại vào productType
+          productType.innerHTML = 'Loại: <p>' + categoryName + '</p>';
+        })
+        .catch(error => console.log(error));
+
+      productImage.src = firstDish.Image || '';
       productName.innerText = firstDish.DishName || '';
-      productType.innerHTML = 'Loại: <p>' + (firstDish.Type || '') + '</p>';
       productPrice.innerHTML = 'Giá: <p>' + (firstDish.Price || '') + 'đ</p>';
       productDescription.innerText = firstDish.Description || '';
     } else {

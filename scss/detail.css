@@ -13,11 +13,11 @@
 }
 .details .detail-container .image {
   width: 50rem;
-  border-radius: 50%;
+  border-radius: 1rem;
 }
 .details .detail-container .image img {
   width: 100%;
-  border-radius: 50%;
+  border-radius: 1rem;
 }
 .details .detail-container .content {
   width: 100%;

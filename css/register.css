@@ -15,6 +15,16 @@
   text-align: center;
   font-size: 2.3rem;
 }
+.wrapper-register .wrapper-container form #error-message {
+  display: none;
+}
+.wrapper-register .wrapper-container form #error-message.active {
+  text-align: center;
+  display: block;
+  padding-top: 0.5rem;
+  font-size: 1.4rem;
+  color: red;
+}
 .wrapper-register .wrapper-container form .box {
   margin: 1.5rem 0;
 }
@@ -46,6 +56,7 @@
 .wrapper-register .wrapper-container form .controller-btn .btn-submitRegister {
   display: inline-block;
   float: right;
+  cursor: pointer;
   background: #4531f2;
   color: #fff;
   padding: 0.7rem 3rem;

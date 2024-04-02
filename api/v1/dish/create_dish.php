@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $sql = "INSERT INTO dish (DishID, DishName, Price, Description, Amount, Image, Status, CateID, ToppingID) VALUES ('$dishID', '$dishName', '$price', '$description', '$amount', '$image','$status', '$cateID', '$toppingID')";
 
         if ($conn->query($sql) === TRUE) {
-            $response = array('message' => 'Drinks dish created successfully', 'status' => 'success', 'data' => array('DishID' => $dishID, 'DishName' => $dishName, 'Price' => $price, 'Description' => $description, 'Amount' => $amount, 'Image' => $image, 'Status' => $status, 'CateID' => $cateID, 'ToppingID' => $toppingID,));
+            $response = array('message' => 'Dish created successfully', 'status' => 'success', 'data' => array('DishID' => $dishID, 'DishName' => $dishName, 'Price' => $price, 'Description' => $description, 'Amount' => $amount, 'Image' => $image, 'Status' => $status, 'CateID' => $cateID, 'ToppingID' => $toppingID,));
             echo json_encode($response);
         } else {
             $response = array('message' => 'Failed to create drinks dish', 'status' => 'error', 'error' => $conn->error);

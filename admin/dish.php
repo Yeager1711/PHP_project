@@ -8,7 +8,7 @@ include('includes/navbar.php');
 <?php
 include('includes/topbar.php');
 
-include('includes/categorycontent.php');
+include('includes/dishcontent.php');
 include('includes/scripts.php');
 include('includes/footer.php');
 

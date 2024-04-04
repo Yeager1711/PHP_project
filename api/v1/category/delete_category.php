@@ -4,10 +4,10 @@ require_once('../db_connect.php');
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     $data = json_decode(file_get_contents("php://input"), true);
 
-    if (isset($data['CateName'])) {
-        $catename = $data['CateName'];
+    if (isset($data['CateID'])) {
+        $cateid = $data['CateID'];
 
-        $sql = "DELETE FROM category WHERE CateName = '$catename'";
+        $sql = "DELETE FROM category WHERE CateID = '$cateid'";
 
         $result = $conn->query($sql);
 

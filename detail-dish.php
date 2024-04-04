@@ -181,15 +181,12 @@
                     toppingOption.textContent = `${topping.Name} + ${topping.Price}đ`;
                     toppingContainer.appendChild(toppingOption);
 
-                    // Thêm sự kiện click cho từng topping option
                     toppingOption.addEventListener('click', () => {
-                        // Xóa hiệu ứng đã chọn trước đó
                         const toppingOptions = toppingContainer.querySelectorAll('span');
                         toppingOptions.forEach(option => {
                             option.classList.remove('topping-selected');
                         });
 
-                        // Thêm hiệu ứng cho topping option được click
                         toppingOption.classList.add('topping-selected');
 
                         console.log(`Topping được chọn: ${topping.Name} - Giá: ${topping.Price}đ`);

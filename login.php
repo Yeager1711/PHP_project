@@ -24,7 +24,7 @@
                 </div>
                 <div class="box">
                     <span>Password</span>
-                    <input type="text" placeholder="Enter your password..." name="password" id="passwordInput" required>
+                    <input type="password" placeholder="Enter your password..." name="password" id="passwordInput" required>
                 </div>
 
                 <div class="controller-btn">

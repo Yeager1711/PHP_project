@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         
             if ($invalidCharsFound) {
-                $response = array('message' => 'Full name should not contain special characters or numbers', 'status' => 'error');
+                $response = array('message' => 'Full Name không chứa ký tự và số', 'status' => 'error');
                 echo json_encode($response);
                 exit;
             }

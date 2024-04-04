@@ -37,8 +37,8 @@
                 <h6 class="collapse-header">Các thành phần:</h6>
                 <a class="collapse-item" href="category.php">Người quản trị</a>
                 <a class="collapse-item" href="category.php">Danh mục</a>
-                <a class="collapse-item" href="cards.html">Sản phẩm</a>
-                <a class="collapse-item" href="cards.html">Topping</a>
+                <a class="collapse-item" href="dish.php">Sản phẩm</a>
+                <a class="collapse-item" href="topping.php">Topping</a>
             </div>
         </div>
     </li>

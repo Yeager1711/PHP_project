@@ -83,3 +83,6 @@
     </div>
 
 </div>
+
+<script src="js/dish/loadDish.js"></script>
+<script src="js/dish/addDish.js"></script>

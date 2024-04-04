@@ -14,7 +14,3 @@
   <!-- Page level custom scripts -->
   <script src="js/demo/chart-area-demo.js"></script>
   <script src="js/demo/chart-pie-demo.js"></script>
-  <script src="js/category/addCategory.js"></script>
-  <!-- <script src="js/category/loadCategory.js"></script> -->
-  <script src="js/dish/loadDish.js"></script>
-  <script src="js/dish/addDish.js"></script>

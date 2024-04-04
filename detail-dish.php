@@ -11,6 +11,14 @@
     <link rel="stylesheet" href="./css/Global.css">
     <link rel="stylesheet" href="./scss/detail.css">
     <!-- <script src="./js/details.js" defer></script> -->
+    <style>
+    .selected {
+    background-color: #27ae60;
+    font-weight: bold;
+    color: #fff;
+    /* Thêm các hiệu ứng khác tùy ý */
+}
+    </style>
 </head>
 
 <body>
@@ -71,11 +79,7 @@
         <section class="describle">
             <h3 class="title-header">Mô tả sản phẩm</h3>
             <p id="productDescription">
-                Lorem isectionsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore
-                et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                culpa qui officia deserunt mollit anim id est laborum."
+                
             </p>
         </section>
 
@@ -94,6 +98,30 @@
     <!-- Initialize Swiper -->
     <script>
         
+    // Lấy danh sách các thẻ chọn size
+const sizeOptions = document.querySelectorAll('.size-option');
+
+// Thêm sự kiện click cho mỗi thẻ
+    sizeOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            // Xóa hiệu ứng đã chọn trước đó
+            sizeOptions.forEach(option => {
+                option.classList.remove('selected');
+            });
+
+            // Thêm hiệu ứng cho thẻ được click
+            option.classList.add('selected');
+
+            // Lấy giá tiền từ thuộc tính data-price
+            const price = option.getAttribute('data-price');
+            console.log('Giá tiền: ' + price);
+
+            // Thực hiện các xử lý khác sau khi chọn size
+            // ...
+        });
+    });
+
+
 
     fetch('./api/v1/dish/get_dish_by_id.php?DishID=<?php echo $_GET["DishID"]; ?>')
     .then(response => response.json())

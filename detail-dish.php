@@ -12,12 +12,18 @@
     <link rel="stylesheet" href="./scss/detail.css">
     <!-- <script src="./js/details.js" defer></script> -->
     <style>
-    .selected {
-    background-color: #27ae60;
-    font-weight: bold;
-    color: #fff;
-    /* Thêm các hiệu ứng khác tùy ý */
-}
+        .selected,
+        .topping-selected {
+            background-color: #27ae60;
+            font-weight: bold;
+            color: #fff;
+
+        }
+
+        .required {
+            color: red;
+            font-size: 1.2em;
+        }
     </style>
 </head>
 
@@ -47,20 +53,20 @@
                 </span>
 
                 <div class="choose-size">
-                <h3>Chọn size (bắt buộc)</h3>
+                    <h3>Chọn size <span class="required">*</span></h3>
 
-                <div class="wrapper-size">
-                    <span class="size-option" data-price="0">Nhỏ + 0đ</span>
-                    <span class="size-option" data-price="10000">Vừa + 10.000đ</span>
-                    <span class="size-option" data-price="15000">Lớn + 15.000đ</span>
-                </div>
+                    <div class="wrapper-size">
+                        <span class="size-option" data-price="0">Nhỏ + 0đ</span>
+                        <span class="size-option" data-price="10000">Vừa + 10.000đ</span>
+                        <span class="size-option" data-price="15000">Lớn + 15.000đ</span>
+                    </div>
                 </div>
 
                 <div class="choose-topping">
-                    <h3>Chọn topping</h3>
+                    <h3>Chọn topping <span class="required">*</span></h3>
 
                     <div class="wrapper-sizeTopping">
-                    
+
                     </div>
                 </div>
 
@@ -79,7 +85,7 @@
         <section class="describle">
             <h3 class="title-header">Mô tả sản phẩm</h3>
             <p id="productDescription">
-                
+
             </p>
         </section>
 
@@ -97,191 +103,205 @@
 
     <!-- Initialize Swiper -->
     <script>
-        
-    // Lấy danh sách các thẻ chọn size
-const sizeOptions = document.querySelectorAll('.size-option');
+        // Lấy danh sách các thẻ chọn size
+        const sizeOptions = document.querySelectorAll('.size-option');
 
-// Thêm sự kiện click cho mỗi thẻ
-    sizeOptions.forEach(option => {
-        option.addEventListener('click', () => {
-            // Xóa hiệu ứng đã chọn trước đó
-            sizeOptions.forEach(option => {
-                option.classList.remove('selected');
+        // Thêm sự kiện click cho mỗi thẻ
+        sizeOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                // Xóa hiệu ứng đã chọn trước đó
+                sizeOptions.forEach(option => {
+                    option.classList.remove('selected');
+                });
+
+                // Thêm hiệu ứng cho thẻ được click
+                option.classList.add('selected');
+
+                // Lấy giá tiền từ thuộc tính data-price
+                const price = option.getAttribute('data-price');
+                console.log('Giá tiền: ' + price);
+
+                // Thực hiện các xử lý khác sau khi chọn size
+                // ...
             });
-
-            // Thêm hiệu ứng cho thẻ được click
-            option.classList.add('selected');
-
-            // Lấy giá tiền từ thuộc tính data-price
-            const price = option.getAttribute('data-price');
-            console.log('Giá tiền: ' + price);
-
-            // Thực hiện các xử lý khác sau khi chọn size
-            // ...
         });
-    });
 
 
 
-    fetch('./api/v1/dish/get_dish_by_id.php?DishID=<?php echo $_GET["DishID"]; ?>')
-    .then(response => response.json())
-    .then(data => {
-    console.log(data);
+        fetch('./api/v1/dish/get_dish_by_id.php?DishID=<?php echo $_GET["DishID"]; ?>')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
 
-    const productImage = document.getElementById('productImage');
-    const productName = document.getElementById('productName');
-    const productType = document.getElementById('productType');
-    const productPrice = document.getElementById('productPrice');
-    const productDescription = document.getElementById('productDescription');
+                const productImage = document.getElementById('productImage');
+                const productName = document.getElementById('productName');
+                const productType = document.getElementById('productType');
+                const productPrice = document.getElementById('productPrice');
+                const productDescription = document.getElementById('productDescription');
 
-    if (Array.isArray(data) && data.length > 0) {
-      const firstDish = data[0];
+                if (Array.isArray(data) && data.length > 0) {
+                    const firstDish = data[0];
 
-      // Lấy danh sách danh mục từ một API khác
-      fetch('./api/v1/category/get_all_category.php')
-        .then(response => response.json())
-        .then(categoryData => {
-          // Tạo một đối tượng ánh xạ CateID với CateName
-          const categoryMap = {};
-          categoryData.forEach(category => {
-            categoryMap[category.CateID] = category.CateName;
-          });
+                    // Lấy danh sách danh mục từ một API khác
+                    fetch('./api/v1/category/get_all_category.php')
+                        .then(response => response.json())
+                        .then(categoryData => {
+                            // Tạo một đối tượng ánh xạ CateID với CateName
+                            const categoryMap = {};
+                            categoryData.forEach(category => {
+                                categoryMap[category.CateID] = category.CateName;
+                            });
 
-          // Lấy tên loại từ danh sách danh mục ánh xạ với CateID
-          const categoryName = categoryMap[firstDish.CateID] || '';
+                            // Lấy tên loại từ danh sách danh mục ánh xạ với CateID
+                            const categoryName = categoryMap[firstDish.CateID] || '';
 
-          // Gán tên loại vào productType
-          productType.innerHTML = 'Loại: <p>' + categoryName + '</p>';
-        })
-        .catch(error => console.log(error));
+                            // Gán tên loại vào productType
+                            productType.innerHTML = 'Loại: <p>' + categoryName + '</p>';
+                        })
+                        .catch(error => console.log(error));
 
-      productImage.src = firstDish.Image || '';
-      productName.innerText = firstDish.DishName || '';
-      productPrice.innerHTML = 'Giá: <p>' + (firstDish.Price || '') + 'đ</p>';
-      productDescription.innerText = firstDish.Description || '';
-    } else {
-      console.log('Mảng dữ liệu trả về rỗng hoặc không hợp lệ.');
-    }
-  })
-  .catch(error => console.log(error));
-
-    //script load topping
-    const toppingContainer = document.querySelector('.wrapper-sizeTopping');
-
-    fetch('./api/v1/topping/get_all_topping.php')
-    .then(response => response.json())
-    .then(data => {
-    data.forEach(topping => {
-      const toppingOption = document.createElement('span');
-      toppingOption.textContent = `${topping.Name} + ${topping.Price}đ`;
-      toppingContainer.appendChild(toppingOption);
-    });
-  })
-  .catch(error => console.log(error));
+                    productImage.src = firstDish.Image || '';
+                    productName.innerText = firstDish.DishName || '';
+                    productPrice.innerHTML = 'Giá: <p>' + (firstDish.Price || '') + 'đ</p>';
+                    productDescription.innerText = firstDish.Description || '';
+                } else {
+                    console.log('Mảng dữ liệu trả về rỗng hoặc không hợp lệ.');
+                }
+            })
+            .catch(error => console.log(error));
 
 
-  const swiperWrapper = document.querySelector('.swiper-wrapper');
-    
-    fetch('./api/v1/category/get_all_category.php')
-    .then(response => response.json())
-    .then(categoryData => {
-    const categoryMap = {};
-    categoryData.forEach(category => {
-        categoryMap[category.CateID] = category.CateName;
-    });
+        const toppingContainer = document.querySelector('.wrapper-sizeTopping');
 
-    fetch('./api/v1/dish/get_all_dish.php')
-        .then(response => response.json())
-        .then(data => {
-            data.forEach(dish => {
-                const swiperSlide = document.createElement('div');
-                swiperSlide.classList.add('swiper-slide');
+        fetch('./api/v1/topping/get_all_topping.php')
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(topping => {
+                    const toppingOption = document.createElement('span');
+                    toppingOption.textContent = `${topping.Name} + ${topping.Price}đ`;
+                    toppingContainer.appendChild(toppingOption);
 
-                const dishLink = document.createElement('a');
-                dishLink.href = `detail-dish.php?DishID=${dish.DishID}`;
-                dishLink.classList.add('box');
+                    // Thêm sự kiện click cho từng topping option
+                    toppingOption.addEventListener('click', () => {
+                        // Xóa hiệu ứng đã chọn trước đó
+                        const toppingOptions = toppingContainer.querySelectorAll('span');
+                        toppingOptions.forEach(option => {
+                            option.classList.remove('topping-selected');
+                        });
 
-                const imageDiv = document.createElement('div');
-                imageDiv.classList.add('image');
+                        // Thêm hiệu ứng cho topping option được click
+                        toppingOption.classList.add('topping-selected');
 
-                const image = document.createElement('img');
-                image.src = dish.Image;
-                image.alt = dish.DishName;
+                        console.log(`Topping được chọn: ${topping.Name} - Giá: ${topping.Price}đ`);
 
-                imageDiv.appendChild(image);
+                    });
+                });
+            })
+            .catch(error => console.log(error));
 
-                const infoDiv = document.createElement('div');
-                infoDiv.classList.add('info-drink');
 
-                const dishName = document.createElement('h3');
-                dishName.textContent = dish.DishName;
 
-                const dishType = document.createElement('span');
-                dishType.innerHTML = `Loại: <p>${categoryMap[dish.CateID]}</p>`;
+        const swiperWrapper = document.querySelector('.swiper-wrapper');
 
-                infoDiv.appendChild(dishName);
-                infoDiv.appendChild(dishType);
+        fetch('./api/v1/category/get_all_category.php')
+            .then(response => response.json())
+            .then(categoryData => {
+                const categoryMap = {};
+                categoryData.forEach(category => {
+                    categoryMap[category.CateID] = category.CateName;
+                });
 
-                dishLink.appendChild(imageDiv);
-                dishLink.appendChild(infoDiv);
+                fetch('./api/v1/dish/get_all_dish.php')
+                    .then(response => response.json())
+                    .then(data => {
+                        data.forEach(dish => {
+                            const swiperSlide = document.createElement('div');
+                            swiperSlide.classList.add('swiper-slide');
 
-                swiperSlide.appendChild(dishLink);
+                            const dishLink = document.createElement('a');
+                            dishLink.href = `detail-dish.php?DishID=${dish.DishID}`;
+                            dishLink.classList.add('box');
 
-                swiperWrapper.appendChild(swiperSlide);
-            });
+                            const imageDiv = document.createElement('div');
+                            imageDiv.classList.add('image');
 
-            var swiper = new Swiper(".mySwiper", {
-                slidesPerView: 4,
-                spaceBetween: 15,
-                loop: true,
-                autoplay: {
-                    delay: 2300,
-                },
-                pagination: {
-                    el: ".swiper-pagination",
-                    dynamicBullets: true,
-                },
-                breakpoints: {
-                    420: {
-                        slidesPerView: 1.6,
-                        spaceBetween: 10,
-                    },
-                    768: {
-                        slidesPerView: 2.5,
-                        spaceBetween: 10,
-                    },
-                    992: {
-                        slidesPerView: 3.6,
-                        spaceBetween: 20,
-                    },
-                    1200: {
-                        slidesPerView: 3.8,
-                        spaceBetween: 30,
-                    },
-                },
-            });
-        })
-        .catch(error => console.log(error));
-})
-.catch(error => console.log(error));
+                            const image = document.createElement('img');
+                            image.src = dish.Image;
+                            image.alt = dish.DishName;
 
-    const decreaseBtn = document.querySelector('.decrease-btn');
-    const increaseBtn = document.querySelector('.increase-btn');
-    const quantityInput = document.querySelector('.quantity-input');
+                            imageDiv.appendChild(image);
 
-    decreaseBtn.addEventListener('click', function () {
-        let currentValue = parseInt(quantityInput.value);
+                            const infoDiv = document.createElement('div');
+                            infoDiv.classList.add('info-drink');
 
-        if (currentValue > 1) {
-            quantityInput.value = currentValue - 1;
-        }
-    });
+                            const dishName = document.createElement('h3');
+                            dishName.textContent = dish.DishName;
 
-    increaseBtn.addEventListener('click', function () {
-        let currentValue = parseInt(quantityInput.value);
-        quantityInput.value = currentValue + 1;
-    });
+                            const dishType = document.createElement('span');
+                            dishType.innerHTML = `Loại: <p>${categoryMap[dish.CateID]}</p>`;
 
+                            infoDiv.appendChild(dishName);
+                            infoDiv.appendChild(dishType);
+
+                            dishLink.appendChild(imageDiv);
+                            dishLink.appendChild(infoDiv);
+
+                            swiperSlide.appendChild(dishLink);
+
+                            swiperWrapper.appendChild(swiperSlide);
+                        });
+
+                        var swiper = new Swiper(".mySwiper", {
+                            slidesPerView: 4,
+                            spaceBetween: 15,
+                            loop: true,
+                            autoplay: {
+                                delay: 2300,
+                            },
+                            pagination: {
+                                el: ".swiper-pagination",
+                                dynamicBullets: true,
+                            },
+                            breakpoints: {
+                                420: {
+                                    slidesPerView: 1.6,
+                                    spaceBetween: 10,
+                                },
+                                768: {
+                                    slidesPerView: 2.5,
+                                    spaceBetween: 10,
+                                },
+                                992: {
+                                    slidesPerView: 3.6,
+                                    spaceBetween: 20,
+                                },
+                                1200: {
+                                    slidesPerView: 3.8,
+                                    spaceBetween: 30,
+                                },
+                            },
+                        });
+                    })
+                    .catch(error => console.log(error));
+            })
+            .catch(error => console.log(error));
+
+        const decreaseBtn = document.querySelector('.decrease-btn');
+        const increaseBtn = document.querySelector('.increase-btn');
+        const quantityInput = document.querySelector('.quantity-input');
+
+        decreaseBtn.addEventListener('click', function() {
+            let currentValue = parseInt(quantityInput.value);
+
+            if (currentValue > 1) {
+                quantityInput.value = currentValue - 1;
+            }
+        });
+
+        increaseBtn.addEventListener('click', function() {
+            let currentValue = parseInt(quantityInput.value);
+            quantityInput.value = currentValue + 1;
+        });
     </script>
 
 </body>

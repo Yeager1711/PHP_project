@@ -37,6 +37,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit(); 
         }
 
+        if (isset($data['FullName'])) {
+            $fullName = $data['FullName'];
+            $specialChars = array("~", "`", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "_", "=", "+", "[", "{", "]", "}", "\\", "|", ";", ":", "'", "\"", "<", ">", ",", ".", "?", "/");
+            $invalidCharsFound = false;
+        
+            foreach ($specialChars as $char) {
+                if (strpos($fullName, $char) !== false) {
+                    $invalidCharsFound = true;
+                    break;
+                }
+            }
+        
+            if (preg_match('/[0-9]/', $fullName)) {
+                $invalidCharsFound = true;
+            }
+        
+            if ($invalidCharsFound) {
+                $response = array('message' => 'Full name should not contain special characters or numbers', 'status' => 'error');
+                echo json_encode($response);
+                exit;
+            }
+        }
+        
+
+        if (!preg_match("/^[a-zA-Z0-9]*$/", $username)) {
+            $response = array('message' => 'Username chỉ được chứa ký tự chữ và số', 'status' => 'error');
+            echo json_encode($response);
+            exit(); 
+        }
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $response = array('message' => 'Email không đúng định dạng', 'status' => 'error');
+            echo json_encode($response);
+            exit(); 
+        }
+
         $checkUsernameQuery = "SELECT * FROM account WHERE UserName='$username'";
         $checkUsernameResult = $conn->query($checkUsernameQuery);
 
@@ -62,7 +98,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $sql = "INSERT INTO account (AccountID, FullName, Email, UserName, Password, RoleID) VALUES ('$accountID', '$fullName', '$email', '$username', '$hashedPassword', '$roleID')";
 
         if ($conn->query($sql) === TRUE) {
-            // Trả về thông tin account đã được tạo
             $response = array('message' => 'Account created successfully', 'status' => 'success', 'data' => array('AccountID' => $accountID, 'FullName' => $fullName, 'Email' => $email, 'UserName' => $username, 'Password' => $hashedPassword, 'RoleID' => $roleID));
             echo json_encode($response);
         } else {

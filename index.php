@@ -88,13 +88,20 @@
 
                     </div>
                 </div>
+            </div>
 
+            <div class="list-TeaContainer">
+                <h3 class="title-header">Danh sách Trà</h3>
 
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper" id="teaProductList"></div>
+                </div>
             </div>
         </div>
     </section>
     <script>
-        fetch('./api/v1/dish/get_all_dish.php')
+
+        fetch('./api/v1/dish/get_dish_by_category.php?CateID=7b474708-86f5-4404-94ef-ac1cb8504bba')
             .then(response => response.json())
             .then(data => {
                 // Lặp qua dữ liệu nhận được từ API và tạo HTML tương ứng
@@ -134,7 +141,6 @@
                         window.location.href = '/bookingcoffee/detail-dish.php?DishID=' + dish.DishID;
                     });
 
-
                     productContent.appendChild(productName);
                     productContent.appendChild(productPrice);
                     productContent.appendChild(addToCartButton);
@@ -150,8 +156,65 @@
                 });
             })
             .catch(error => console.log(error));
-    </script>
 
+        // =================================================================================================================
+
+        fetch('./api/v1/dish/get_dish_by_category.php?CateID=42b4f591-ee08-4614-a180-c7b3b840a535')
+            .then(response => response.json())
+            .then(data => {
+                // Lặp qua dữ liệu nhận được từ API và tạo HTML tương ứng
+                data.forEach(dish => {
+                    // Tạo một thẻ swiper-slide mới
+                    var swiperSlide = document.createElement('div');
+                    swiperSlide.classList.add('swiper-slide');
+
+                    // Tạo HTML cho sản phẩm
+                    var productBox = document.createElement('div');
+                    productBox.classList.add('box');
+
+                    var productImage = document.createElement('div');
+                    productImage.classList.add('image-product');
+
+                    var image = document.createElement('img');
+                    image.src = dish.Image;
+                    image.alt = '';
+
+                    productImage.appendChild(image);
+
+                    var productContent = document.createElement('div');
+                    productContent.classList.add('content');
+
+                    var productName = document.createElement('span');
+                    productName.innerText = dish.DishName;
+
+                    var productPrice = document.createElement('span');
+                    productPrice.innerText = dish.Price + 'đ';
+
+                    var addToCartButton = document.createElement('div');
+                    addToCartButton.classList.add('btn-addToCart');
+                    addToCartButton.innerText = 'Xem sản phẩm';
+
+                    // Event listener for the button to redirect to detail_product.php
+                    addToCartButton.addEventListener('click', function() {
+                        window.location.href = '/bookingcoffee/detail-dish.php?DishID=' + dish.DishID;
+                    });
+
+                    productContent.appendChild(productName);
+                    productContent.appendChild(productPrice);
+                    productContent.appendChild(addToCartButton);
+
+                    productBox.appendChild(productImage);
+                    productBox.appendChild(productContent);
+
+                    swiperSlide.appendChild(productBox);
+
+                    // Thêm swiper-slide mới vào swiper-wrapper hiện tại
+                    var swiperWrapper = document.getElementById('teaProductList');
+                    swiperWrapper.appendChild(swiperSlide);
+                });
+            })
+            .catch(error => console.log(error));
+    </script>
 
     <section class="blogs">
         <div class="blog-container">

@@ -24,10 +24,10 @@
 
 <body>
     <header class="header">
-        <a href="index.html" class="logo"> <i class="ri-store-2-line"></i>The 4Koffee</a>
+        <a href="index.php" class="logo"> <i class="ri-store-2-line"></i>The 4Koffee</a>
 
         <nav class="navbar">
-            <a href="#home">home</a>
+            <a href="index.php">home</a>
             <a href="#about">about</a>
             <a href="#popular">popular</a>
             <a href="#menu">menu</a>
@@ -38,17 +38,15 @@
         <div class="icons">
             <div id="menu-btn" class="ri-menu-line"></div>
             <a href="search-btn" class="ri-search-line"></a>
-            <a href="cart-btn" class="ri-shopping-cart-line"></a>
+            <a href="carts.html" class="ri-shopping-cart-line"></a>
             <?php
             // Start the session
             session_start();
-
             // Check if the user is logged in
             if (isset($_SESSION['username'])) {
-                // Display the user's full name
                 echo '<a class="user-info">Welcome, ' . $_SESSION['fullname'] . '</a>';
             }else {
-                echo '<a href="./login.php" class="fa-solid fa-user"></a>';
+                echo '<a href="./login.php">Login</a>';
             }
             ?>
         </div>

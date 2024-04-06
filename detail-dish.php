@@ -17,6 +17,7 @@
             background-color: #27ae60;
             font-weight: bold;
             color: #fff;
+            
 
         }
 
@@ -102,30 +103,22 @@
 
     <!-- Initialize Swiper -->
     <script>
+        
         // Lấy danh sách các thẻ chọn size
         const sizeOptions = document.querySelectorAll('.size-option');
 
-        // Thêm sự kiện click cho mỗi thẻ
+        // Thêm sự kiện click cho thẻ
         sizeOptions.forEach(option => {
             option.addEventListener('click', () => {
-                // Xóa hiệu ứng đã chọn trước đó
                 sizeOptions.forEach(option => {
                     option.classList.remove('selected');
                 });
-
-                // Thêm hiệu ứng cho thẻ được click
                 option.classList.add('selected');
-
-                // Lấy giá tiền từ thuộc tính data-price
                 const price = option.getAttribute('data-price');
                 console.log('Giá tiền: ' + price);
 
-                // Thực hiện các xử lý khác sau khi chọn size
-                // ...
             });
         });
-
-
 
         fetch('./api/v1/dish/get_dish_by_id.php?DishID=<?php echo $_GET["DishID"]; ?>')
             .then(response => response.json())
@@ -281,23 +274,52 @@
                     .catch(error => console.log(error));
             })
             .catch(error => console.log(error));
+    
+        //sctipt quanity
+        let cartItem = {
+        name: '',
+        image: '',
+        price: 0,
+        quantity: 1
+        };
 
-        const decreaseBtn = document.querySelector('.decrease-btn');
-        const increaseBtn = document.querySelector('.increase-btn');
-        const quantityInput = document.querySelector('.quantity-input');
+    const quantityInput = document.querySelector('.quantity-input');
+    const decreaseBtn = document.querySelector('.decrease-btn');
+    const increaseBtn = document.querySelector('.increase-btn');
 
-        decreaseBtn.addEventListener('click', function() {
-            let currentValue = parseInt(quantityInput.value);
+    decreaseBtn.addEventListener('click', function() {
+    let currentValue = parseInt(quantityInput.value);
 
-            if (currentValue > 1) {
-                quantityInput.value = currentValue - 1;
-            }
-        });
+    if (currentValue > 1) {
+        quantityInput.value = currentValue - 1;
+        cartItem.quantity = currentValue - 1;
+    }
+    });
 
-        increaseBtn.addEventListener('click', function() {
-            let currentValue = parseInt(quantityInput.value);
-            quantityInput.value = currentValue + 1;
-        });
+    increaseBtn.addEventListener('click', function() {
+    let currentValue = parseInt(quantityInput.value);
+    quantityInput.value = currentValue + 1;
+    cartItem.quantity = currentValue + 1;
+    });
+
+    const addToCartButton = document.querySelector('.btn-addToCart');
+    addToCartButton.addEventListener('click', () => {
+    const productName = document.getElementById('productName').innerText;
+    const productImage = document.getElementById('productImage').src;
+    const productPrice = parseFloat(document.getElementById('productPrice').textContent.replace('Giá: ', '').replace('đ', ''));
+
+    cartItem.name = productName;
+    cartItem.image = productImage;
+    cartItem.price = productPrice;
+
+    // Lưu trữ cartItem vào localStorage hoặc sessionStorage
+    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    cart.push(cartItem);
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    // Điều hướng đến trang cart.html
+    window.location.href = 'carts.html';
+    });
     </script>
 
 </body>

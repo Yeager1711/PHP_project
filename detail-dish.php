@@ -92,7 +92,6 @@
         <div class="container-list-product">
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper" id="relatedProducts">
-                    <!-- Các sản phẩm liên quan sẽ được cập nhật bằng JavaScript -->
                 </div>
                 <div class="swiper-pagination"></div>
             </div>

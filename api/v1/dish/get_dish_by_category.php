@@ -3,8 +3,8 @@ require_once('../db_connect.php');
 
 // Xử lý phương thức GET
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    if (isset($_GET['CateID'])) { // Kiểm tra xem có tham số CateID được truyền vào không
-        $cateId = $_GET['CateID']; // Nhận giá trị CateID từ tham số truyền vào
+    if (isset($_GET['CateID'])) { 
+        $cateId = $_GET['CateID']; 
 
         // Sử dụng câu truy vấn PREPARE để tránh lỗi SQL injection
         $stmt = $conn->prepare("SELECT * FROM dish WHERE CateID = ?");

@@ -35,7 +35,6 @@
                     <span>Email</span>
                     <input type="email" name="email" id="emailInput" required>
                 </div>
-                <!-- Thêm phần hiển thị thông báo lỗi -->
 
                 <div class="controller-btn">
                     <a href="./login.php">Đăng nhập</a>

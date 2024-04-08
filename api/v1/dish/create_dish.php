@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
         if ($invalidCharsFound) {
-            $response = array('message' => 'Drink name should not contain special characters', 'status' => 'error');
+            $response = array('message' => 'Dish name should not contain special characters', 'status' => 'error');
             echo json_encode($response);
             exit;
         }
@@ -55,16 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
     }
-    if (isset($data['ToppingID'])) {
-        $toppingID = $data['ToppingID'];
-        $checkToppingID = "SELECT * FROM topping WHERE ToppingID = '$toppingID'";
-        $result = $conn->query($checkToppingID);
-        if ($result->num_rows == 0) {
-            $response = array('message' => 'ToppingID not found', 'status' => 'error');
-            echo json_encode($response);
-            exit;
-        }
-    }
+  
 
     if (isset($data['DishName']) && isset($data['Price']) && isset($data['Description']) && isset($data['Amount']) && isset($data['Image']) && isset($data['Status']) && isset($data['CateID']) && isset($data['ToppingID'])) {
         $dishName = $data['DishName'];
@@ -80,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $sql = "INSERT INTO dish (DishID, DishName, Price, Description, Amount, Image, Status, CateID, ToppingID) VALUES ('$dishID', '$dishName', '$price', '$description', '$amount', '$image','$status', '$cateID', '$toppingID')";
 
         if ($conn->query($sql) === TRUE) {
-            $response = array('message' => 'Drinks dish created successfully', 'status' => 'success', 'data' => array('DishID' => $dishID, 'DishName' => $dishName, 'Price' => $price, 'Description' => $description, 'Amount' => $amount, 'Image' => $image, 'Status' => $status, 'CateID' => $cateID, 'ToppingID' => $toppingID,));
+            $response = array('message' => 'Dish created successfully', 'status' => 'success', 'data' => array('DishID' => $dishID, 'DishName' => $dishName, 'Price' => $price, 'Description' => $description, 'Amount' => $amount, 'Image' => $image, 'Status' => $status, 'CateID' => $cateID, 'ToppingID' => $toppingID,));
             echo json_encode($response);
         } else {
             $response = array('message' => 'Failed to create drinks dish', 'status' => 'error', 'error' => $conn->error);

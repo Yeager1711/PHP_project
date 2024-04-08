@@ -1,0 +1,6 @@
+.dish-image {
+    width: 100px; /* Tuỳ chỉnh kích thước chiều rộng */
+    height: auto; /* Tự động tính toán chiều cao dựa trên tỷ lệ khung hình */
+  }
+
+  

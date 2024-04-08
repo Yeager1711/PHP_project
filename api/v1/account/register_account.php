@@ -1,7 +1,7 @@
 <?php
 require_once('../db_connect.php');
 
-session_start(); // Bắt đầu phiên làm việc
+session_start(); 
 
 function generateAccountID() {
     $uuid = sprintf(
@@ -28,46 +28,77 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $fullName = $data['FullName'];
         $email = $data['Email'];
         $username = $data['UserName'];
-        $password = $data['Password'];
+        $password = $data['Password']; 
         $roleID = "8895cda3-548d-4cca-808c-6053256da06e";
 
-        // Kiểm tra xem người dùng đã đăng nhập hay chưa
         if (isset($_SESSION['fullname'])) {
             $response = array('message' => 'You are already registered and logged in', 'status' => 'error');
             echo json_encode($response);
             exit(); 
         }
 
-        // Kiểm tra xem username đã tồn tại chưa
+        if (isset($data['FullName'])) {
+            $fullName = $data['FullName'];
+            $specialChars = array("~", "`", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "_", "=", "+", "[", "{", "]", "}", "\\", "|", ";", ":", "'", "\"", "<", ">", ",", ".", "?", "/");
+            $invalidCharsFound = false;
+        
+            foreach ($specialChars as $char) {
+                if (strpos($fullName, $char) !== false) {
+                    $invalidCharsFound = true;
+                    break;
+                }
+            }
+        
+            if (preg_match('/[0-9]/', $fullName)) {
+                $invalidCharsFound = true;
+            }
+        
+            if ($invalidCharsFound) {
+                $response = array('message' => 'Full Name không chứa ký tự và số', 'status' => 'error');
+                echo json_encode($response);
+                exit;
+            }
+        }
+        
+
+        if (!preg_match("/^[a-zA-Z0-9]*$/", $username)) {
+            $response = array('message' => 'Username chỉ được chứa ký tự chữ và số', 'status' => 'error');
+            echo json_encode($response);
+            exit(); 
+        }
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $response = array('message' => 'Email không đúng định dạng', 'status' => 'error');
+            echo json_encode($response);
+            exit(); 
+        }
+
         $checkUsernameQuery = "SELECT * FROM account WHERE UserName='$username'";
         $checkUsernameResult = $conn->query($checkUsernameQuery);
 
-        // Kiểm tra xem email đã tồn tại chưa
         $checkEmailQuery = "SELECT * FROM account WHERE Email='$email'";
         $checkEmailResult = $conn->query($checkEmailQuery);
 
         if ($checkUsernameResult->num_rows > 0) {
-            // Nếu username đã tồn tại
             $response = array('message' => 'Username đã tồn tại', 'status' => 'error');
             echo json_encode($response);
             exit(); 
         }
 
         if ($checkEmailResult->num_rows > 0) {
-            // Nếu email đã tồn tại
             $response = array('message' => 'Email đã tồn tại', 'status' => 'error');
             echo json_encode($response);
             exit(); 
         }
 
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
         $accountID = generateAccountID();
 
-        // Tạo câu truy vấn INSERT
-        $sql = "INSERT INTO account (AccountID, FullName, Email, UserName, Password, RoleID) VALUES ('$accountID', '$fullName', '$email', '$username', '$password', '$roleID')";
+        $sql = "INSERT INTO account (AccountID, FullName, Email, UserName, Password, RoleID) VALUES ('$accountID', '$fullName', '$email', '$username', '$hashedPassword', '$roleID')";
 
         if ($conn->query($sql) === TRUE) {
-            // Trả về thông tin account đã được tạo
-            $response = array('message' => 'Account created successfully', 'status' => 'success', 'data' => array('AccountID' => $accountID, 'FullName' => $fullName, 'Email' => $email, 'UserName' => $username, 'Password' => $password, 'RoleID' => $roleID));
+            $response = array('message' => 'Account created successfully', 'status' => 'success', 'data' => array('AccountID' => $accountID, 'FullName' => $fullName, 'Email' => $email, 'UserName' => $username, 'Password' => $hashedPassword, 'RoleID' => $roleID));
             echo json_encode($response);
         } else {
             $response = array('message' => 'Failed to create account', 'status' => 'error', 'error' => $conn->error);
@@ -79,6 +110,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Đóng kết nối đến cơ sở dữ liệu
 $conn->close();
 ?>

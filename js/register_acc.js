@@ -1,8 +1,8 @@
-function isValidEmail(email) {
-    // Biểu thức chính quy để kiểm tra định dạng email
-    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailPattern.test(email);
-}
+// function isValidEmail(email) {
+//     // Biểu thức chính quy để kiểm tra định dạng email
+//     var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+//     return emailPattern.test(email);
+// }
 
 function submitRegisterForm() {
     var registerForm = document.getElementById('registerForm');
@@ -15,10 +15,10 @@ function submitRegisterForm() {
         var email = document.getElementById('emailInput').value;
 
         // Kiểm tra định dạng email trước khi gửi dữ liệu
-        if (!isValidEmail(email)) {
-            document.getElementById('error-message').innerText = 'Định dạng email không hợp lệ';
-            return;
-        }
+        // if (!isValidEmail(email)) {
+        //     document.getElementById('error-message').innerText = 'Định dạng email không hợp lệ';
+        //     return;
+        // }
 
         var data = {
             FullName: fullName,

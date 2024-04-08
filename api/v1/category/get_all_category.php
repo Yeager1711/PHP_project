@@ -1,8 +1,8 @@
 <?php
 require_once('../db_connect.php');
-// Xử lý phương thức GET
+
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    // Tạo câu truy vấn SELECT
+
     $sql = "SELECT * FROM category";
     $result = $conn->query($sql);
     $response = array();

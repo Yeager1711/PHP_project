@@ -304,25 +304,28 @@
 
         const addToCartButton = document.querySelector('.btn-addToCart');
         addToCartButton.addEventListener('click', () => {
+            const selectedSizeOption = document.querySelector('.size-option.selected');
+            const selectedToppingOption = document.querySelector('.topping-selected');
+
+            if (!selectedSizeOption || !selectedToppingOption) {
+                alert('Vui lòng chọn cả size và topping trước khi thêm vào giỏ hàng.');
+                return; 
+            }
             const productName = document.getElementById('productName').innerText;
             const productImage = document.getElementById('productImage').src;
             const productPrice = parseFloat(document.getElementById('productPrice').textContent.replace('Giá: ', '').replace('đ', ''));
-            const selectedSizeOption = document.querySelector('.size-option.selected');
             cartItem.size = selectedSizeOption ? selectedSizeOption.textContent : '';
-            const selectedToppingOption = document.querySelector('.topping-selected');
 
 
             cartItem.name = productName;
             cartItem.image = productImage;
             cartItem.price = productPrice;
-            cartItem.topping = selectedToppingOption ? selectedToppingOption.textContent.split('+')[0].trim() : ''; // Lưu thông tin topping
+            cartItem.topping = selectedToppingOption ? selectedToppingOption.textContent.split('+')[0].trim() : ''; 
 
-            // Lưu trữ cartItem vào localStorage hoặc sessionStorage
             let cart = JSON.parse(localStorage.getItem('cart') || '[]');
             cart.push(cartItem);
             localStorage.setItem('cart', JSON.stringify(cart));
 
-            // Điều hướng đến trang cart.html
             window.location.href = 'carts.html';
         });
     </script>

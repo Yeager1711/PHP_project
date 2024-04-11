@@ -379,9 +379,8 @@
             const productName = document.getElementById('productName').innerText;
             const productImage = document.getElementById('productImage').src;
             const productPrice = parseFloat(document.getElementById('productPrice').textContent.replace('Giá: ', '').replace('đ', ''));
+
             cartItem.size = selectedSizeOption ? selectedSizeOption.textContent : '';
-
-
             cartItem.name = productName;
             cartItem.image = productImage;
             cartItem.price = productPrice;
@@ -391,8 +390,9 @@
             cart.push(cartItem);
             localStorage.setItem('cart', JSON.stringify(cart));
 
-            window.location.href = 'carts.html';
+            window.location.href = 'carts.php';
         });
+
     </script>
 
 </body>

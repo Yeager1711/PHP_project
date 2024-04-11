@@ -386,9 +386,10 @@
             cartItem.price = productPrice;
             cartItem.topping = selectedToppingOption ? selectedToppingOption.textContent.split('+')[0].trim() : '';
 
-            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            let username = '<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'guest'; ?>';
+            let cart = JSON.parse(sessionStorage.getItem('cart_' + username) || '[]');
             cart.push(cartItem);
-            localStorage.setItem('cart', JSON.stringify(cart));
+            sessionStorage.setItem('cart_' + username, JSON.stringify(cart));
 
             window.location.href = 'carts.php';
         });

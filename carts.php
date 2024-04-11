@@ -3,18 +3,18 @@ session_start();
 
 // Kiểm tra xem người dùng đã đăng nhập hay chưa
 if (isset($_SESSION['username'])) {
-    // Kiểm tra xem giỏ hàng của người dùng đã được lưu trong phiên session hay chưa
-    if (!isset($_SESSION['cart'])) {
-        // Nếu chưa có giỏ hàng, tạo một giỏ hàng mới rỗng
-        $_SESSION['cart'] = [];
-    }
+  // Kiểm tra xem giỏ hàng của người dùng đã được lưu trong phiên session hay chưa
+  if (!isset($_SESSION['cart'])) {
+    // Nếu chưa có giỏ hàng, tạo một giỏ hàng mới rỗng
+    $_SESSION['cart'] = [];
+  }
 
-    // Lấy thông tin giỏ hàng từ phiên session
-    $cart = $_SESSION['cart'];
+  // Lấy thông tin giỏ hàng từ phiên session
+  $cart = $_SESSION['cart'];
 } else {
-    // Nếu người dùng chưa đăng nhập, chuyển hướng họ đến trang đăng nhập
-    header('Location: login.php');
-    exit; // Dừng việc thực thi mã PHP tiếp theo
+  // Nếu người dùng chưa đăng nhập, chuyển hướng họ đến trang đăng nhập
+  header('Location: login.php');
+  exit; // Dừng việc thực thi mã PHP tiếp theo
 }
 ?>
 
@@ -37,6 +37,11 @@ if (isset($_SESSION['username'])) {
   <div class="cart">
     <div class="cart-container">
       <div class="header-cart">
+
+        <video autoplay muted loop class="header-video">
+          <source src="video/coffe.mp4" type="video/mp4">
+        </video>
+
         <div class="status">
           <h3>Cart</h3>
           <div class="status-action">
@@ -126,7 +131,7 @@ if (isset($_SESSION['username'])) {
 </body>
 
 <script>
-  window.onload = function () {
+  window.onload = function() {
     const cartList = document.querySelector('.list-items tbody');
     const subtotalElements = document.querySelectorAll('.subtotal p');
     const totalElement = document.querySelector('.total p');
@@ -134,7 +139,7 @@ if (isset($_SESSION['username'])) {
     loadCartItems();
 
     // Thêm sự kiện click cho biểu tượng X
-    cartList.addEventListener('click', function (event) {
+    cartList.addEventListener('click', function(event) {
       if (event.target.classList.contains('fa-xmark')) {
         const row = event.target.closest('tr');
         const cart = JSON.parse(localStorage.getItem('cart') || '[]');
@@ -214,7 +219,9 @@ if (isset($_SESSION['username'])) {
     const cartList = document.querySelector('.list-items tbody');
     cartList.innerHTML = '';
 
-    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const username = '<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'guest'; ?>';
+    const cart = JSON.parse(sessionStorage.getItem('cart_' + username) || '[]');
+
 
     cart.forEach((item) => {
       const row = document.createElement('tr');
@@ -233,8 +240,6 @@ if (isset($_SESSION['username'])) {
       cartList.appendChild(row);
     });
   }
-
-
 </script>
 
 </html>

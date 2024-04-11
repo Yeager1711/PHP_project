@@ -1,20 +1,15 @@
 <?php
 session_start();
 
-// Kiểm tra xem người dùng đã đăng nhập hay chưa
 if (isset($_SESSION['username'])) {
-  // Kiểm tra xem giỏ hàng của người dùng đã được lưu trong phiên session hay chưa
   if (!isset($_SESSION['cart'])) {
-    // Nếu chưa có giỏ hàng, tạo một giỏ hàng mới rỗng
     $_SESSION['cart'] = [];
   }
 
-  // Lấy thông tin giỏ hàng từ phiên session
   $cart = $_SESSION['cart'];
 } else {
-  // Nếu người dùng chưa đăng nhập, chuyển hướng họ đến trang đăng nhập
   header('Location: login.php');
-  exit; // Dừng việc thực thi mã PHP tiếp theo
+  exit;
 }
 ?>
 
@@ -120,7 +115,7 @@ if (isset($_SESSION['username'])) {
 
 
               <div class="btn-checkout">
-                <a href="./checkout.html">
+                <a href="./checkout.php">
                   Proceed to checkout</a>
               </div>
             </div>

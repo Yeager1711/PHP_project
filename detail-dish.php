@@ -44,7 +44,9 @@
 
 <!-- ================================================================ -->
 
-<body> 
+<body>
+
+    <?php session_start(); ?>
 
     <?php
     if (isset($_GET["DishID"])) {
@@ -334,8 +336,18 @@
             toppingWrapper.appendChild(toppingWarning);
         }
 
+        function isLoggedIn() {
+            return <?php echo isset($_SESSION['username']) ? 'true' : 'false'; ?>;
+        }
+
         const addToCartButton = document.querySelector('.btn-addToCart');
         addToCartButton.addEventListener('click', () => {
+
+            if (!isLoggedIn()) {
+                window.location.href = 'login.php';
+                return;
+            }
+
             const selectedSizeOption = document.querySelector('.size-option.selected');
             const selectedToppingOption = document.querySelector('.topping-selected');
 

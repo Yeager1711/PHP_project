@@ -35,7 +35,6 @@ function submitRegisterForm() {
             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
                 var response = JSON.parse(xhr.responseText);
                 if (response.status === 'success') {
-                    alert('Đăng ký thành công!');
                     window.location.href = "../bookingcoffee/login.php";
                 } else {
                     document.getElementById('error-message').innerText = response.message;

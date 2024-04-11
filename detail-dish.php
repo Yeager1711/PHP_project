@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="./css/Global.css">
     <link rel="stylesheet" href="./scss/detail.css">
     <!-- <script src="./js/details.js" defer></script> -->
+
     <style>
         .selected,
         .topping-selected {
@@ -21,6 +22,19 @@
 
         }
 
+        /* .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        } */
+
+        .size-warning,
+        .topping-warning {
+            margin-left: 10px;
+            color: red;
+            font-weight: bold;
+        }
+
         .required {
             color: red;
             font-size: 1.2em;
@@ -28,7 +42,9 @@
     </style>
 </head>
 
-<body>
+<!-- ================================================================ -->
+
+<body> 
 
     <?php
     if (isset($_GET["DishID"])) {
@@ -302,15 +318,52 @@
             cartItem.quantity = currentValue + 1;
         });
 
+        function showSizeWarning() {
+            const sizeWrapper = document.querySelector(".choose-size");
+            const sizeWarning = document.createElement("div");
+            sizeWarning.classList.add("size-warning");
+            sizeWarning.textContent = "Vui lòng chọn size trước khi thêm vào giỏ hàng.";
+            sizeWrapper.appendChild(sizeWarning);
+        }
+
+        function showToppingWarning() {
+            const toppingWrapper = document.querySelector(".choose-topping");
+            const toppingWarning = document.createElement("div");
+            toppingWarning.classList.add("topping-warning");
+            toppingWarning.textContent = "Vui lòng chọn topping trước khi thêm vào giỏ hàng.";
+            toppingWrapper.appendChild(toppingWarning);
+        }
+
         const addToCartButton = document.querySelector('.btn-addToCart');
         addToCartButton.addEventListener('click', () => {
             const selectedSizeOption = document.querySelector('.size-option.selected');
             const selectedToppingOption = document.querySelector('.topping-selected');
 
-            if (!selectedSizeOption || !selectedToppingOption) {
-                alert('Vui lòng chọn cả size và topping trước khi thêm vào giỏ hàng.');
-                return; 
+            const sizeWarning = document.querySelector(".size-warning");
+            const toppingWarning = document.querySelector(".topping-warning");
+
+            if (!selectedSizeOption) {
+                if (!sizeWarning) {
+                    showSizeWarning();
+                }
+                return;
+            } else {
+                if (sizeWarning) {
+                    sizeWarning.remove();
+                }
             }
+
+            if (!selectedToppingOption) {
+                if (!toppingWarning) {
+                    showToppingWarning();
+                }
+                return;
+            } else {
+                if (toppingWarning) {
+                    toppingWarning.remove();
+                }
+            }
+
             const productName = document.getElementById('productName').innerText;
             const productImage = document.getElementById('productImage').src;
             const productPrice = parseFloat(document.getElementById('productPrice').textContent.replace('Giá: ', '').replace('đ', ''));
@@ -320,7 +373,7 @@
             cartItem.name = productName;
             cartItem.image = productImage;
             cartItem.price = productPrice;
-            cartItem.topping = selectedToppingOption ? selectedToppingOption.textContent.split('+')[0].trim() : ''; 
+            cartItem.topping = selectedToppingOption ? selectedToppingOption.textContent.split('+')[0].trim() : '';
 
             let cart = JSON.parse(localStorage.getItem('cart') || '[]');
             cart.push(cartItem);

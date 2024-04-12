@@ -83,7 +83,7 @@
                         </table>
                     </div>
 
-                    <div class="info-user">
+                    <!-- <div class="info-user">
                         <div class="box">
                             <span>
                                 Địa chỉ:
@@ -104,7 +104,7 @@
                                 <p>123xxx456xxx789</p>
                             </span>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="value-items">
                         <h3>Orders totals</h3>

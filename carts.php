@@ -97,7 +97,7 @@ if (isset($_SESSION['username'])) {
                 <p>loading...</p>
               </div>
 
-              <div class="table">
+              <!-- <div class="table">
                 <span>Table:</span>
                 <select name="number_of_tables">
                   <option value="1">Bàn 01</option>
@@ -111,7 +111,7 @@ if (isset($_SESSION['username'])) {
                   <option value="9">Bàn 09</option>
                   <option value="10">Bàn 010</option>
                 </select>
-              </div>
+              </div> -->
 
 
               <div class="btn-checkout">

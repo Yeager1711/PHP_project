@@ -97,23 +97,6 @@ if (isset($_SESSION['username'])) {
                 <p>loading...</p>
               </div>
 
-              <!-- <div class="table">
-                <span>Table:</span>
-                <select name="number_of_tables">
-                  <option value="1">Bàn 01</option>
-                  <option value="2">Bàn 02</option>
-                  <option value="3">Bàn 03</option>
-                  <option value="4">Bàn 04</option>
-                  <option value="5">Bàn 05</option>
-                  <option value="6">Bàn 06</option>
-                  <option value="7">Bàn 07</option>
-                  <option value="8">Bàn 08</option>
-                  <option value="9">Bàn 09</option>
-                  <option value="10">Bàn 010</option>
-                </select>
-              </div> -->
-
-
               <div class="btn-checkout">
                 <a href="./checkout.php">
                   Proceed to checkout</a>
@@ -126,18 +109,30 @@ if (isset($_SESSION['username'])) {
 </body>
 
 <script>
+  const btnCheckout = document.querySelector('.btn-checkout');
+
+  btnCheckout.addEventListener('click', () => {
+    const username = '<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'guest'; ?>';
+    console.log('user' + username);
+    const cart = JSON.parse(sessionStorage.getItem('cart_' + username) || '[]');
+    const encodedCart = encodeURIComponent(JSON.stringify(cart));
+    window.location.href = `./checkout.php?cart=${encodedCart}`;
+
+  });
+
+  //  ====================================================================================================================
   window.onload = function() {
     const cartList = document.querySelector('.list-items tbody');
     const subtotalElements = document.querySelectorAll('.subtotal p');
     const totalElement = document.querySelector('.total p');
-    const tableSelect = document.querySelector('select[name="number_of_tables"]');
+    const username = '<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'guest'; ?>';
     loadCartItems();
 
     // Thêm sự kiện click cho biểu tượng X
     cartList.addEventListener('click', function(event) {
       if (event.target.classList.contains('fa-xmark')) {
         const row = event.target.closest('tr');
-        const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
 
         // Tìm chỉ mục của sản phẩm cần xóa trong giỏ hàng
         const index = cart.findIndex(item => {
@@ -153,7 +148,7 @@ if (isset($_SESSION['username'])) {
         // Xóa sản phẩm khỏi giỏ hàng
         if (index !== -1) {
           cart.splice(index, 1);
-          localStorage.setItem('cart', JSON.stringify(cart));
+          sessionStorage.setItem('cart', JSON.stringify(cart));
           loadCartItems();
           calculateTotal();
         }
@@ -164,27 +159,9 @@ if (isset($_SESSION['username'])) {
     const updateButton = document.querySelector('.btn-update');
     updateButton.addEventListener('click', updateCart);
 
-    // Tính toán và hiển thị tổng
-    function calculateTotal() {
-      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-      let subtotal = 0;
-
-      cart.forEach(item => {
-        subtotal += item.price * item.quantity;
-      });
-
-      const tableValue = parseFloat(tableSelect.value);
-      const total = subtotal + tableValue;
-
-      subtotalElements.forEach(element => {
-        element.textContent = subtotal.toFixed(3) + " vnđ";
-      });
-      totalElement.textContent = total.toFixed(3) + " vnđ";
-    }
-
     // Cập nhật giỏ hàng
     function updateCart() {
-      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
       const updatedCart = [];
       let subtotal = 0;
 
@@ -195,19 +172,36 @@ if (isset($_SESSION['username'])) {
         const rowPrice = parseFloat(row.querySelector('td:nth-child(6)').textContent.replace('đ', ''));
         const rowQuantity = parseInt(row.querySelector('td:nth-child(7) input').value);
 
-        const item = cart.find(item => item.name === rowName && item.size === rowSize && item.topping === rowTopping && item.price === rowPrice);
+        let itemIndex = cart.findIndex(item => item.name === rowName && item.size === rowSize && item.topping === rowTopping && item.price === rowPrice);
 
-        if (item) {
-          item.quantity = rowQuantity;
-          updatedCart.push(item);
-          subtotal += item.price * item.quantity;
+        if (itemIndex !== -1) {
+          cart[itemIndex].quantity = rowQuantity; // Cập nhật số lượng sản phẩm trong giỏ hàng
+          updatedCart.push(cart[itemIndex]);
         }
       });
 
-      localStorage.setItem('cart', JSON.stringify(updatedCart));
+      sessionStorage.setItem('cart', JSON.stringify(updatedCart));
       loadCartItems();
       calculateTotal();
     }
+
+    function calculateTotal() {
+      const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
+      console.log(sessionStorage.getItem('cart'));
+      let subtotal = 0;
+
+      cart.forEach(item => {
+        subtotal += item.price * item.quantity;
+      });
+
+      // Hiển thị tổng giỏ hàng và tổng cộng
+      subtotalElements.forEach(element => {
+        element.textContent = subtotal.toFixed(3) + " vnđ";
+      });
+      totalElement.textContent = subtotal.toFixed(3) + " vnđ";
+    }
+
+
   };
 
   function loadCartItems() {

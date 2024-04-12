@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +16,7 @@
     <link rel="stylesheet" href="./scss/checkout.css">
 </head>
 
-<body>
+<body onload="loadCartItems()">
     <div class="checkout">
         <div class="checkout-container">
             <div class="header-checkout">
@@ -53,95 +57,79 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td><i class="fa-solid fa-xmark"></i></td>
-                                    <td>
-                                        <img src="./image/product-1.jpg" alt="">
-                                    </td>
-                                    <td>
-                                        Product 1
-                                    </td>
-                                    <td>$10.00</td>
-                                    <td>
-                                        <input type="number" value="2">
-                                    </td>
-                                    <td>$20.00</td>
-                                </tr>
-                                <tr>
-                                    <td><i class="fa-solid fa-xmark"></i></td>
-                                    <td>
-                                        <img src="./image/product-2.jpg" alt="">
-                                    </td>
-                                    <td>Product 2</td>
-                                    <td>$15.00</td>
-                                    <td>
-                                        <input type="number" value="1">
-                                    </td>
-                                    <td>$15.00</td>
-                                </tr>
+
                             </tbody>
                         </table>
                     </div>
-
-                    <!-- <div class="info-user">
-                        <div class="box">
-                            <span>
-                                Địa chỉ:
-                                <p>P25, Quận Bình Thạnh, Thành phố Hồ Chí Minh</p>
-                            </span>
-                        </div>
-
-                        <div class="box">
-                            <span>
-                                Họ tên:
-                                <p>Lâm Trung Tính</p>
-                            </span>
-                        </div>
-
-                        <div class="box">
-                            <span>
-                                Số điện thoại:
-                                <p>123xxx456xxx789</p>
-                            </span>
-                        </div>
-                    </div> -->
-
                     <div class="value-items">
                         <h3>Orders totals</h3>
-
                         <div class="value">
                             <div class="subtotal">
-                                <span>subtotal:</span>
-                                <p>$228.00</p>
+                                <span>Subtotal:</span>
+                                <p id="subtotal">loading...</p>
                             </div>
-
                             <div class="tax">
-                                <span>tax:</span>
+                                <span>Tax:</span>
                                 <p>10%</p>
                             </div>
-
-                            <div class="table">
+                            <!-- <div class="table">
                                 <span>Table:</span>
                                 <p>Bàn 01</p>
-                            </div>
-
+                            </div> -->
                             <div class="total">
-                                <span>total:</span>
-                                <p>$228.00</p>
+                                <span>Total:</span>
+                                <p id="total">loading...</p>
                             </div>
-
-
                         </div>
                     </div>
-
+                        
                     <div class="btn-checkout">
                         <a href="./checkout.html">
                             Proceed to checkout</a>
                     </div>
+                    
                 </div>
-
             </section>
         </div>
+    </div>
+
+    <script>
+        function loadCartItems() {
+            const cartList = document.querySelector('.list-items tbody');
+            console.log('cart list ', cartList);
+            cartList.innerHTML = '';
+
+            const username = '<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'guest'; ?>';
+            const cart = JSON.parse(sessionStorage.getItem('cart_' + username) || '[]');
+            console.log('cart:', cart);
+
+
+            cart.forEach((item) => {
+                console.log('Processing item:', item);
+                const row = document.createElement('tr');
+
+                row.innerHTML = `
+                    <td><i class="fa-solid fa-xmark"></i></td>
+                    <td><img src="${item.image}" alt="${item.name}"></td>
+                    <td>${item.name}</td>
+                    <td>${item.size}</td>
+                    <td>${item.topping}</td>
+                    <td>${item.price.toFixed(3)}đ</td>
+                    <td><input type="number" value="${item.quantity}"></td>
+                    <td>${(item.price * item.quantity).toFixed(3)}đ</td>
+                `;
+
+                cartList.appendChild(row);
+            });
+
+            const subtotal = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+            const total = subtotal * 1.1;
+
+            document.getElementById('subtotal').textContent = subtotal.toFixed(3) + 'đ';
+            document.getElementById('total').textContent = total.toFixed(3) + 'đ';
+        }
+    </script>
+
 </body>
 
 </html>

@@ -131,10 +131,11 @@ if (isset($_SESSION['username'])) {
     // Thêm sự kiện click cho biểu tượng X
     cartList.addEventListener('click', function(event) {
       if (event.target.classList.contains('fa-xmark')) {
+        console.log('X button clicked'); 
+
         const row = event.target.closest('tr');
         const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
 
-        // Tìm chỉ mục của sản phẩm cần xóa trong giỏ hàng
         const index = cart.findIndex(item => {
           const rowName = row.querySelector('td:nth-child(3)').textContent;
           const rowSize = row.querySelector('td:nth-child(4)').textContent;
@@ -159,7 +160,6 @@ if (isset($_SESSION['username'])) {
     const updateButton = document.querySelector('.btn-update');
     updateButton.addEventListener('click', updateCart);
 
-    // Cập nhật giỏ hàng
     function updateCart() {
       const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
       const updatedCart = [];
@@ -175,7 +175,7 @@ if (isset($_SESSION['username'])) {
         let itemIndex = cart.findIndex(item => item.name === rowName && item.size === rowSize && item.topping === rowTopping && item.price === rowPrice);
 
         if (itemIndex !== -1) {
-          cart[itemIndex].quantity = rowQuantity; // Cập nhật số lượng sản phẩm trong giỏ hàng
+          cart[itemIndex].quantity = rowQuantity; 
           updatedCart.push(cart[itemIndex]);
         }
       });
@@ -210,7 +210,7 @@ if (isset($_SESSION['username'])) {
 
     const username = '<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'guest'; ?>';
     const cart = JSON.parse(sessionStorage.getItem('cart_' + username) || '[]');
-
+    console.log('Cart:', cart);
 
     cart.forEach((item) => {
       const row = document.createElement('tr');

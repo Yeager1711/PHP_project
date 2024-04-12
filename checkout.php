@@ -20,6 +20,11 @@ session_start();
     <div class="checkout">
         <div class="checkout-container">
             <div class="header-checkout">
+
+                <video autoplay muted loop class="header-video">
+                    <source src="video/coffe.mp4" type="video/mp4">
+                </video>
+
                 <div class="status">
                     <h3>Orders</h3>
                     <div class="status-action">
@@ -82,12 +87,12 @@ session_start();
                             </div>
                         </div>
                     </div>
-                        
+
                     <div class="btn-checkout">
                         <a href="./checkout.html">
                             Proceed to checkout</a>
                     </div>
-                    
+
                 </div>
             </section>
         </div>

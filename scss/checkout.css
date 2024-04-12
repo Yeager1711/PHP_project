@@ -3,9 +3,19 @@
 }
 
 .checkout .checkout-container .header-checkout {
-  min-height: 30vh;
-  background: #171f3a;
+  min-height: 56vh;
+  /* background: #171f3a; */
   position: relative;
+}
+
+.header-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  z-index: -1; 
 }
 
 .checkout .checkout-container .header-checkout .status {

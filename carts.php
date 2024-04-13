@@ -120,6 +120,34 @@ if (isset($_SESSION['username'])) {
 
   });
 
+  
+  function loadCartItems() {
+    const cartList = document.querySelector('.list-items tbody');
+    cartList.innerHTML = '';
+
+    const username = '<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'guest'; ?>';
+    const cart = JSON.parse(sessionStorage.getItem('cart_' + username) || '[]');
+    console.log('Cart:', cart);
+
+    cart.forEach((item) => {
+      const row = document.createElement('tr');
+
+      row.innerHTML = `
+      <td><i class="fa-solid fa-xmark"></i></td>
+      <td><img src="${item.image}" alt="${item.name}"></td>
+      <td>${item.name}</td>
+      <td>${item.size}</td>
+      <td>${item.topping}</td>
+      <td>${item.price.toFixed(3)}đ</td>
+      <td><input type="number" value="${item.quantity}"></td>
+      <td>${(item.price * item.quantity).toFixed(3)}đ</td>
+    `;
+
+      cartList.appendChild(row);
+    }
+    );
+  }
+
   //  ====================================================================================================================
   window.onload = function() {
     const cartList = document.querySelector('.list-items tbody');
@@ -204,31 +232,7 @@ if (isset($_SESSION['username'])) {
 
   };
 
-  function loadCartItems() {
-    const cartList = document.querySelector('.list-items tbody');
-    cartList.innerHTML = '';
 
-    const username = '<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'guest'; ?>';
-    const cart = JSON.parse(sessionStorage.getItem('cart_' + username) || '[]');
-    console.log('Cart:', cart);
-
-    cart.forEach((item) => {
-      const row = document.createElement('tr');
-
-      row.innerHTML = `
-      <td><i class="fa-solid fa-xmark"></i></td>
-      <td><img src="${item.image}" alt="${item.name}"></td>
-      <td>${item.name}</td>
-      <td>${item.size}</td>
-      <td>${item.topping}</td>
-      <td>${item.price.toFixed(3)}đ</td>
-      <td><input type="number" value="${item.quantity}"></td>
-      <td>${(item.price * item.quantity).toFixed(3)}đ</td>
-    `;
-
-      cartList.appendChild(row);
-    });
-  }
 </script>
 
 </html>

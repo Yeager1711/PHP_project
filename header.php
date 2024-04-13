@@ -20,6 +20,12 @@
     <link rel="stylesheet" href="./scss/Global.css">
     <link rel="stylesheet" href="./scss/header.css">
     <script src="./js/header.js" defer></script>
+
+    <style>
+        .user-info{
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
@@ -38,22 +44,40 @@
         <div class="icons">
             <div id="menu-btn" class="ri-menu-line"></div>
             <a href="search-btn" class="ri-search-line"></a>
-            <a href="carts.html" class="ri-shopping-cart-line"></a>
+            <a href="carts.php" class="ri-shopping-cart-line"></a>
             <?php
             // Start the session
             session_start();
             // Check if the user is logged in
             if (isset($_SESSION['username'])) {
                 echo '<a class="user-info">Welcome, ' . $_SESSION['fullname'] . '</a>';
-            }else {
+            } else {
                 echo '<a href="./login.php">Login</a>';
             }
             ?>
         </div>
 
-
     </header>
 
 </body>
+
+<script>
+
+    const userInfo = document.querySelector('.user-info');
+
+    userInfo.addEventListener('click', function() {
+        if (<?php echo isset($_SESSION['username']) ? 'true' : 'false'; ?>) {
+            
+            var xhr = new XMLHttpRequest();
+            
+            xhr.open('GET', './logout.php', true);
+            xhr.send();
+
+            xhr.onload = function() {
+                window.location.href = './login.php';
+            };
+        }
+    });
+</script>
 
 </html>

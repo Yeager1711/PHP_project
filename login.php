@@ -45,7 +45,7 @@
 
         submitBtn.addEventListener('click', function() {
 
-            var userName = document.getElementById('userNameInput').value;
+            var userName = document.etElementById('userNameInput').value;
             var password = document.getElementById('passwordInput').value;
 
             var data = {

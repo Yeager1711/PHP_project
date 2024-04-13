@@ -2,20 +2,10 @@
   min-height: 100vh;
 }
 .cart .cart-container .header-cart {
-  min-height: 56vh;
+  min-height: 50vh;
+  background: #171f3a;
   position: relative;
 }
-
-.header-video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover; 
-  z-index: -1; 
-}
-
 .cart .cart-container .header-cart .status {
   position: absolute;
   top: 50%;

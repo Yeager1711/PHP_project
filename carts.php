@@ -26,11 +26,6 @@ if (isset($_SESSION['username'])) {
 
   <link rel="stylesheet" href="./scss/Global.css">
   <link rel="stylesheet" href="./scss/cart.css">
-  <style>
-    .btn-update{
-      cursor: pointer;
-    }
-    </style>
 </head>
 
 <body>
@@ -125,14 +120,14 @@ if (isset($_SESSION['username'])) {
 
   });
 
-  
+
   function loadCartItems() {
     const cartList = document.querySelector('.list-items tbody');
     cartList.innerHTML = '';
 
     const username = '<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'guest'; ?>';
     const cart = JSON.parse(sessionStorage.getItem('cart_' + username) || '[]');
-    
+
     console.log('Cart:', cart);
 
     cart.forEach((item) => {
@@ -150,8 +145,7 @@ if (isset($_SESSION['username'])) {
     `;
 
       cartList.appendChild(row);
-    }
-    );
+    });
   }
 
   //  ====================================================================================================================
@@ -164,33 +158,33 @@ if (isset($_SESSION['username'])) {
 
     // Thêm sự kiện click cho biểu tượng X
     // Thêm sự kiện click cho biểu tượng X
-cartList.addEventListener('click', function(event) {
-  if (event.target.classList.contains('fa-xmark')) {
-    console.log('X button clicked');
+    cartList.addEventListener('click', function(event) {
+      if (event.target.classList.contains('fa-xmark')) {
+        console.log('X button clicked');
 
-    const row = event.target.closest('tr');
-    const rowName = row.querySelector('td:nth-child(3)').textContent;
-    const rowSize = row.querySelector('td:nth-child(4)').textContent;
-    const rowTopping = row.querySelector('td:nth-child(5)').textContent;
-    const rowPrice = parseFloat(row.querySelector('td:nth-child(6)').textContent.replace('đ', ''));
-    const rowQuantity = parseInt(row.querySelector('td:nth-child(7) input').value);
+        const row = event.target.closest('tr');
+        const rowName = row.querySelector('td:nth-child(3)').textContent;
+        const rowSize = row.querySelector('td:nth-child(4)').textContent;
+        const rowTopping = row.querySelector('td:nth-child(5)').textContent;
+        const rowPrice = parseFloat(row.querySelector('td:nth-child(6)').textContent.replace('đ', ''));
+        const rowQuantity = parseInt(row.querySelector('td:nth-child(7) input').value);
 
-    const username = '<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'guest'; ?>';
-    const cart = JSON.parse(sessionStorage.getItem('cart_' + username) || '[]');
+        const username = '<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'guest'; ?>';
+        const cart = JSON.parse(sessionStorage.getItem('cart_' + username) || '[]');
 
-    const index = cart.findIndex(item => {
-      return item.name === rowName && item.size === rowSize && item.topping === rowTopping && item.price === rowPrice && item.quantity === rowQuantity;
+        const index = cart.findIndex(item => {
+          return item.name === rowName && item.size === rowSize && item.topping === rowTopping && item.price === rowPrice && item.quantity === rowQuantity;
+        });
+
+        // Xóa sản phẩm khỏi giỏ hàng
+        if (index !== -1) {
+          cart.splice(index, 1);
+          sessionStorage.setItem('cart_' + username, JSON.stringify(cart));
+          loadCartItems();
+          calculateTotal();
+        }
+      }
     });
-
-    // Xóa sản phẩm khỏi giỏ hàng
-    if (index !== -1) {
-      cart.splice(index, 1);
-      sessionStorage.setItem('cart_' + username, JSON.stringify(cart));
-      loadCartItems();
-      calculateTotal();
-    }
-  }
-});
 
     // Thêm sự kiện click cho nút "Cập nhật"
     const updateButton = document.querySelector('.btn-update');
@@ -211,7 +205,7 @@ cartList.addEventListener('click', function(event) {
         let itemIndex = cart.findIndex(item => item.name === rowName && item.size === rowSize && item.topping === rowTopping && item.price === rowPrice);
 
         if (itemIndex !== -1) {
-          cart[itemIndex].quantity = rowQuantity; 
+          cart[itemIndex].quantity = rowQuantity;
           updatedCart.push(cart[itemIndex]);
         }
       });
@@ -222,12 +216,22 @@ cartList.addEventListener('click', function(event) {
     }
 
     function calculateTotal() {
-      const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
-      console.log(sessionStorage.getItem('cart'));
+      const cart = JSON.parse(sessionStorage.getItem('cart_' + username) || '[]');
       let subtotal = 0;
 
       cart.forEach(item => {
-        subtotal += item.price * item.quantity;
+        let itemSubtotal = (item.price + item.sizePrice + item.toppingPrice) * item.quantity;
+
+        // Hiển thị các giá trị để kiểm tra
+        console.log('Price:', item.price);
+        console.log('Size Price:', item.sizePrice);
+        console.log('Topping Price:', item.toppingPrice);
+        console.log('Quantity:', item.quantity);
+
+        // Tính giá subtotal cho mỗi sản phẩm
+        console.log('Subtotal:', itemSubtotal);
+        
+        subtotal += itemSubtotal;
       });
 
       // Hiển thị tổng giỏ hàng và tổng cộng
@@ -239,8 +243,6 @@ cartList.addEventListener('click', function(event) {
 
 
   };
-
-
 </script>
 
 </html>

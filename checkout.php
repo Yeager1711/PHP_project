@@ -99,8 +99,9 @@ session_start();
     </div>
 
     <script>
+        const cartList = document.querySelector('.list-items tbody');
+
         function loadCartItems() {
-            const cartList = document.querySelector('.list-items tbody');
             console.log('cart list ', cartList);
             cartList.innerHTML = '';
 
@@ -133,6 +134,33 @@ session_start();
             document.getElementById('subtotal').textContent = subtotal.toFixed(3) + 'đ';
             document.getElementById('total').textContent = total.toFixed(3) + 'đ';
         }
+
+
+        cartList.addEventListener('click', function(event) {
+            if (event.target.classList.contains('fa-xmark')) {
+                console.log('X button clicked');
+
+                const row = event.target.closest('tr');
+                const rowName = row.querySelector('td:nth-child(3)').textContent;
+                const rowSize = row.querySelector('td:nth-child(4)').textContent;
+                const rowTopping = row.querySelector('td:nth-child(5)').textContent;
+                const rowPrice = parseFloat(row.querySelector('td:nth-child(6)').textContent.replace('đ', ''));
+                const rowQuantity = parseInt(row.querySelector('td:nth-child(7) input').value);
+
+                const username = '<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'guest'; ?>';
+                const cart = JSON.parse(sessionStorage.getItem('cart_' + username) || '[]');
+
+                const index = cart.findIndex(item => {
+                    return item.name === rowName && item.size === rowSize && item.topping === rowTopping && item.price === rowPrice && item.quantity === rowQuantity;
+                });
+
+                if (index !== -1) {
+                    cart.splice(index, 1);
+                    sessionStorage.setItem('cart_' + username, JSON.stringify(cart));
+                    loadCartItems();
+                }
+            }
+        });
     </script>
 
 </body>

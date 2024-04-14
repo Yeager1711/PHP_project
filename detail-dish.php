@@ -42,7 +42,7 @@
     </style>
 </head>
 
-<!-- ================================================================ -->
+<!-- ================================================================================================================================================================================================ -->
 
 <body>
 
@@ -117,9 +117,11 @@
         </div>
     </div>
 
+    <!-- ================================================================================================================================================================================================ -->
+
+
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-    <!-- Initialize Swiper -->
     <script>
         // Lấy danh sách các thẻ chọn size
         const sizeOptions = document.querySelectorAll('.size-option');
@@ -292,13 +294,16 @@
             })
             .catch(error => console.log(error));
 
-        //sctipt quanity
+        //script quantity
         let cartItem = {
             name: '',
             image: '',
             price: 0,
             quantity: 1,
-            size: ''
+            size: '',
+            sizePrice: 0,
+            topping: '',
+            toppingPrice: 0
         };
 
         const quantityInput = document.querySelector('.quantity-input');
@@ -340,6 +345,7 @@
             return <?php echo isset($_SESSION['username']) ? 'true' : 'false'; ?>;
         }
 
+
         const addToCartButton = document.querySelector('.btn-addToCart');
         addToCartButton.addEventListener('click', () => {
 
@@ -350,7 +356,8 @@
 
             const selectedSizeOption = document.querySelector('.size-option.selected');
             const selectedToppingOption = document.querySelector('.topping-selected');
-
+            const sizePrice = selectedSizeOption ? parseFloat(selectedSizeOption.getAttribute('data-price')) : 0;
+            const toppingPrice = selectedToppingOption ? parseFloat(selectedToppingOption.textContent.split('+')[1].trim()) : 0;
             const sizeWarning = document.querySelector(".size-warning");
             const toppingWarning = document.querySelector(".topping-warning");
 
@@ -378,13 +385,24 @@
 
             const productName = document.getElementById('productName').innerText;
             const productImage = document.getElementById('productImage').src;
-            const productPrice = parseFloat(document.getElementById('productPrice').textContent.replace('Giá: ', '').replace('đ', ''));
+            const productPriceText = document.getElementById('productPrice').textContent;
+
+            // Tách chuỗi để lấy phần giá trị số
+            const priceParts = productPriceText.split(' ')[1]; // Lấy phần sau dấu cách, bắt đầu từ '50.000'
+
+            // Loại bỏ dấu 'đ' từ cuối chuỗi
+            const priceWithoutCurrency = priceParts.replace('đ', '');
+
+            // Chuyển đổi thành số dạng float
+            const productPrice = parseFloat(priceWithoutCurrency);
 
             cartItem.size = selectedSizeOption ? selectedSizeOption.textContent : '';
             cartItem.name = productName;
             cartItem.image = productImage;
             cartItem.price = productPrice;
-            cartItem.topping = selectedToppingOption ? selectedToppingOption.textContent.split('+')[0].trim() : '';
+            cartItem.topping = selectedToppingOption ? selectedToppingOption.textContent.trim() : '';
+            cartItem.sizePrice = sizePrice;
+            cartItem.toppingPrice = toppingPrice;
 
             let username = '<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'guest'; ?>';
             let cart = JSON.parse(sessionStorage.getItem('cart_' + username) || '[]');
@@ -392,8 +410,10 @@
             sessionStorage.setItem('cart_' + username, JSON.stringify(cart));
 
             window.location.href = 'carts.php';
-        });
-
+        }
+        
+        
+        );
     </script>
 
 </body>

@@ -76,17 +76,13 @@ if (isset($_SESSION['username'])) {
               </tbody>
             </table>
 
-            <div class="btn-update">Cập nhật </div>
+           <button class="btn-update">Cập nhật</button>
+
           </div>
 
           <div class="value-items">
             <h3>Cart totals</h3>
-
             <div class="value">
-              <div class="subtotal">
-                <span>hello:</span>
-                <p>loading...</p>
-              </div>
               <div class="subtotal">
                 <span>subtotal:</span>
                 <p>loading...</p>
@@ -96,6 +92,22 @@ if (isset($_SESSION['username'])) {
                 <span>total:</span>
                 <p>loading...</p>
               </div>
+
+              <div class="table">
+                  <span>Bàn:</span>
+                    <select name="number_of_tables">
+                      <option value="1">Bàn 01</option>
+                      <option value="2">Bàn 02</option>
+                      <option value="3">Bàn 03</option>
+                      <option value="4">Bàn 04</option>
+                      <option value="5">Bàn 05</option>
+                      <option value="6">Bàn 06</option>
+                      <option value="7">Bàn 07</option>
+                      <option value="8">Bàn 08</option>
+                      <option value="9">Bàn 09</option>
+                      <option value="10">Bàn 010</option>
+                  </select>
+                </div>
 
               <div class="btn-checkout">
                 <a href="./checkout.php">
@@ -109,44 +121,49 @@ if (isset($_SESSION['username'])) {
 </body>
 
 <script>
+  const selectTable = document.querySelector('select[name="number_of_tables"]');
+
   const btnCheckout = document.querySelector('.btn-checkout');
 
   btnCheckout.addEventListener('click', () => {
+    const selectedTable = selectTable.value; // Lấy giá trị của bàn đã chọn
+
     const username = '<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'guest'; ?>';
     console.log('user' + username);
     const cart = JSON.parse(sessionStorage.getItem('cart_' + username) || '[]');
     const encodedCart = encodeURIComponent(JSON.stringify(cart));
-    window.location.href = `./checkout.php?cart=${encodedCart}`;
+    sessionStorage.setItem('selected_table_' + username, selectedTable);
+    console.log('selected_table_' + username, selectedTable)
 
+    window.location.href = `./checkout.php?cart=${encodedCart}`;
   });
 
-  
   function loadCartItems() {
     const cartList = document.querySelector('.list-items tbody');
     cartList.innerHTML = '';
 
     const username = '<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'guest'; ?>';
     const cart = JSON.parse(sessionStorage.getItem('cart_' + username) || '[]');
-    
+
     console.log('Cart:', cart);
 
     cart.forEach((item) => {
       const row = document.createElement('tr');
 
       row.innerHTML = `
-      <td><i class="fa-solid fa-xmark"></i></td>
-      <td><img src="${item.image}" alt="${item.name}"></td>
-      <td>${item.name}</td>
-      <td>${item.size}</td>
-      <td>${item.topping}</td>
-      <td>${item.price.toFixed(3)}đ</td>
-      <td><input type="number" value="${item.quantity}"></td>
-      <td>${(item.price * item.quantity).toFixed(3)}đ</td>
-    `;
+        <td><i class="fa-solid fa-xmark"></i></td>
+        <td><img src="${item.image}" alt="${item.name}"></td>
+        <td>${item.name}</td>
+        <td>${item.size}</td>
+        <td>${item.topping}</td>
+        <td>${item.price.toFixed(3)}đ</td>
+        <td><input type="number" value="${item.quantity}"></td>
+        <td class="item-total">${(item.price * item.quantity).toFixed(3)}đ</td>
+      `;
 
+      
       cartList.appendChild(row);
-    }
-    );
+    });
   }
 
   //  ====================================================================================================================
@@ -155,46 +172,64 @@ if (isset($_SESSION['username'])) {
     const subtotalElements = document.querySelectorAll('.subtotal p');
     const totalElement = document.querySelector('.total p');
     const username = '<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'guest'; ?>';
+    calculateTotal();
     loadCartItems();
+    
 
     // Thêm sự kiện click cho biểu tượng X
-    // Thêm sự kiện click cho biểu tượng X
-cartList.addEventListener('click', function(event) {
-  if (event.target.classList.contains('fa-xmark')) {
-    console.log('X button clicked');
+    cartList.addEventListener('click', function(event) {
+      if (event.target.classList.contains('fa-xmark')) {
+        console.log('X button clicked');
 
-    const row = event.target.closest('tr');
-    const rowName = row.querySelector('td:nth-child(3)').textContent;
-    const rowSize = row.querySelector('td:nth-child(4)').textContent;
-    const rowTopping = row.querySelector('td:nth-child(5)').textContent;
-    const rowPrice = parseFloat(row.querySelector('td:nth-child(6)').textContent.replace('đ', ''));
-    const rowQuantity = parseInt(row.querySelector('td:nth-child(7) input').value);
+        const row = event.target.closest('tr');
+        const rowName = row.querySelector('td:nth-child(3)').textContent;
+        const rowSize = row.querySelector('td:nth-child(4)').textContent;
+        const rowTopping = row.querySelector('td:nth-child(5)').textContent;
+        const rowPrice = parseFloat(row.querySelector('td:nth-child(6)').textContent.replace('đ', ''));
+        const rowQuantity = parseInt(row.querySelector('td:nth-child(7) input').value);
 
-    const username = '<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'guest'; ?>';
-    const cart = JSON.parse(sessionStorage.getItem('cart_' + username) || '[]');
+        const username = '<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'guest'; ?>';
+        const cart = JSON.parse(sessionStorage.getItem('cart_' + username) || '[]');
 
-    const index = cart.findIndex(item => {
-      return item.name === rowName && item.size === rowSize && item.topping === rowTopping && item.price === rowPrice && item.quantity === rowQuantity;
+        const index = cart.findIndex(item => {
+          return item.name === rowName && item.size === rowSize && item.topping === rowTopping && item.price === rowPrice && item.quantity === rowQuantity;
+        });
+
+        // Xóa sản phẩm khỏi giỏ hàng
+        if (index !== -1) {
+          cart.splice(index, 1);
+          sessionStorage.setItem('cart_' + username, JSON.stringify(cart));
+          loadCartItems();
+          calculateTotal();
+        }
+      }
     });
 
-    // Xóa sản phẩm khỏi giỏ hàng
-    if (index !== -1) {
-      cart.splice(index, 1);
-      sessionStorage.setItem('cart_' + username, JSON.stringify(cart));
-      loadCartItems();
-      calculateTotal();
-    }
-  }
-});
+    //xử lý không cho chọn số lượng âm
+    const quantityInputs = document.querySelectorAll('input[type="number"]');
+
+    quantityInputs.forEach(input => {
+      input.addEventListener('input', () => {
+        if (input.value < 1) {
+          input.value = 1;
+        }
+      });
+    });
 
     // Thêm sự kiện click cho nút "Cập nhật"
     const updateButton = document.querySelector('.btn-update');
     updateButton.addEventListener('click', updateCart);
 
+    // Thêm sự kiện change cho các input số lượng
+    cartList.addEventListener('change', function(event) {
+      if (event.target.nodeName === 'INPUT' && event.target.type === 'number') {
+        updateCart();
+      }
+    });
+
     function updateCart() {
-      const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
+      const cart = JSON.parse(sessionStorage.getItem('cart_' + username) || '[]');
       const updatedCart = [];
-      let subtotal = 0;
 
       cartList.querySelectorAll('tr').forEach(row => {
         const rowName = row.querySelector('td:nth-child(3)').textContent;
@@ -203,39 +238,51 @@ cartList.addEventListener('click', function(event) {
         const rowPrice = parseFloat(row.querySelector('td:nth-child(6)').textContent.replace('đ', ''));
         const rowQuantity = parseInt(row.querySelector('td:nth-child(7) input').value);
 
-        let itemIndex = cart.findIndex(item => item.name === rowName && item.size === rowSize && item.topping === rowTopping && item.price === rowPrice);
+        const itemIndex = cart.findIndex(item => item.name === rowName && item.size === rowSize && item.topping === rowTopping && item.price === rowPrice);
 
         if (itemIndex !== -1) {
-          cart[itemIndex].quantity = rowQuantity; 
+          cart[itemIndex].quantity = rowQuantity;
           updatedCart.push(cart[itemIndex]);
+
+          // Cập nhật giá trị tổng cho hàng đó
+          const itemTotal = row.querySelector('.item-total');
+          itemTotal.textContent = (rowPrice * rowQuantity).toFixed(3) + 'đ';
         }
       });
 
-      sessionStorage.setItem('cart', JSON.stringify(updatedCart));
-      loadCartItems();
+      sessionStorage.setItem('cart_' + username, JSON.stringify(updatedCart));
       calculateTotal();
     }
 
     function calculateTotal() {
-      const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
-      console.log(sessionStorage.getItem('cart'));
-      let subtotal = 0;
+      const cart = JSON.parse(sessionStorage.getItem('cart_' + username) || '[]');
+  let subtotal = 0;
 
-      cart.forEach(item => {
-        subtotal += item.price * item.quantity;
-      });
+  cart.forEach(item => {
+    let itemPrice = item.price;
 
-      // Hiển thị tổng giỏ hàng và tổng cộng
-      subtotalElements.forEach(element => {
-        element.textContent = subtotal.toFixed(3) + " vnđ";
-      });
-      totalElement.textContent = subtotal.toFixed(3) + " vnđ";
+    // Tính phụ phí cho kích thước
+    if (item.size === 'Vừa + 10.000đ') {
+      itemPrice += 10.000;
+    } else if (item.size === 'Lớn + 15.000đ') {
+      itemPrice += 15.000;
     }
 
+    // Tính phụ phí cho topping
+    const toppingPrice = parseFloat(item.topping.split('+')[1]) || 0;
+    itemPrice += toppingPrice;
 
+    const itemSubtotal = itemPrice * item.quantity;
+    subtotal += itemSubtotal;
+  });
+
+  // Hiển thị tổng giỏ hàng và tổng cộng
+  subtotalElements.forEach(element => {
+    element.textContent = subtotal.toFixed(3) + " vnđ";
+  });
+  totalElement.textContent = subtotal.toFixed(3) + " vnđ";
+  }
   };
-
-
 </script>
 
 </html>

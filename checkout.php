@@ -66,21 +66,23 @@ session_start();
                             </tbody>
                         </table>
                     </div>
+                   
                     <div class="value-items">
                         <h3>Orders totals</h3>
+                       
                         <div class="value">
+                            
                             <div class="subtotal">
-                                <span>Subtotal:</span>
+                                <span>Subtotal: </span>
                                 <p id="subtotal">loading...</p>
                             </div>
+                           
                             <div class="tax">
                                 <span>Tax:</span>
                                 <p>10%</p>
                             </div>
-                            <!-- <div class="table">
-                                <span>Table:</span>
-                                <p>Bàn 01</p>
-                            </div> -->
+                            
+                           
                             <div class="total">
                                 <span>Total:</span>
                                 <p id="total">loading...</p>
@@ -89,18 +91,18 @@ session_start();
                     </div>
 
                     <div class="btn-checkout">
-                        <a href="./checkout.html">
+                        <a href="./order_success.html">
                             Proceed to checkout</a>
                     </div>
-
                 </div>
             </section>
         </div>
     </div>
 
     <script>
+        const cartList = document.querySelector('.list-items tbody');
+
         function loadCartItems() {
-            const cartList = document.querySelector('.list-items tbody');
             console.log('cart list ', cartList);
             cartList.innerHTML = '';
 
@@ -132,7 +134,65 @@ session_start();
 
             document.getElementById('subtotal').textContent = subtotal.toFixed(3) + 'đ';
             document.getElementById('total').textContent = total.toFixed(3) + 'đ';
+            calculateTotal();
+
         }
+
+
+        function calculateTotal() {
+  const username = '<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'guest'; ?>';
+  const cart = JSON.parse(sessionStorage.getItem('cart_' + username) || '[]');
+  let subtotal = 0;
+
+  cart.forEach(item => {
+    let itemPrice = item.price;
+
+    // Tính phụ phí cho kích thước
+    if (item.size === 'Vừa + 10.000đ') {
+      itemPrice += 10.000;
+    } else if (item.size === 'Lớn + 15.000đ') {
+      itemPrice += 15.000;
+    }
+
+    // Tính phụ phí cho topping
+    const toppingPrice = parseFloat(item.topping.split('+')[1]) || 0;
+    itemPrice += toppingPrice;
+
+    const itemSubtotal = itemPrice * item.quantity;
+    subtotal += itemSubtotal;
+  });
+
+  const total = subtotal * 1.1;
+
+  document.getElementById('subtotal').textContent = subtotal.toFixed(3) + 'đ';
+  document.getElementById('total').textContent = total.toFixed(3) + 'đ';
+}
+
+        cartList.addEventListener('click', function(event) {
+            if (event.target.classList.contains('fa-xmark')) {
+                console.log('X button clicked');
+
+                const row = event.target.closest('tr');
+                const rowName = row.querySelector('td:nth-child(3)').textContent;
+                const rowSize = row.querySelector('td:nth-child(4)').textContent;
+                const rowTopping = row.querySelector('td:nth-child(5)').textContent;
+                const rowPrice = parseFloat(row.querySelector('td:nth-child(6)').textContent.replace('đ', ''));
+                const rowQuantity = parseInt(row.querySelector('td:nth-child(7) input').value);
+
+                const username = '<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'guest'; ?>';
+                const cart = JSON.parse(sessionStorage.getItem('cart_' + username) || '[]');
+
+                const index = cart.findIndex(item => {
+                    return item.name === rowName && item.size === rowSize && item.topping === rowTopping && item.price === rowPrice && item.quantity === rowQuantity;
+                });
+
+                if (index !== -1) {
+                    cart.splice(index, 1);
+                    sessionStorage.setItem('cart_' + username, JSON.stringify(cart));
+                    loadCartItems();
+                }
+            }
+        });
     </script>
 
 </body>

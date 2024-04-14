@@ -26,6 +26,11 @@ if (isset($_SESSION['username'])) {
 
   <link rel="stylesheet" href="./scss/Global.css">
   <link rel="stylesheet" href="./scss/cart.css">
+  <style>
+    .btn-update{
+      cursor: pointer;
+    }
+    </style>
 </head>
 
 <body>

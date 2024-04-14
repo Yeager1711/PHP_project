@@ -185,6 +185,40 @@
         .list-CoffeContainer {
             margin-top: 2rem;
 
+            .header-title {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .box-search {
+                    margin-top: 2rem;
+                    border: .1rem solid #dbdbdb;
+                    border-radius: 1rem;
+                    padding: .5rem 1.5rem;
+                    overflow: hidden;
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    width: 30rem;
+
+                    input {
+                        width: 80%;
+                    }
+
+                    button {
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        bottom: 0;
+                        background: #186ade;
+                        padding: .5rem 1.5rem;
+                        color: #fff;
+                        font-size: 1.3rem;
+                        cursor: pointer;
+                    }
+                }
+            }
+
             .box {
                 position: relative;
                 border-radius: 1rem;

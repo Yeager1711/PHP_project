@@ -154,6 +154,36 @@
 .product .product-container .list-CoffeContainer {
   margin-top: 2rem;
 }
+.product .product-container .list-CoffeContainer .header-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.product .product-container .list-CoffeContainer .header-title .box-search {
+  margin-top: 2rem;
+  border: 0.1rem solid #dbdbdb;
+  border-radius: 1rem;
+  padding: 0.5rem 1.5rem;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 30rem;
+}
+.product .product-container .list-CoffeContainer .header-title .box-search input {
+  width: 80%;
+}
+.product .product-container .list-CoffeContainer .header-title .box-search button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: #186ade;
+  padding: 0.5rem 1.5rem;
+  color: #fff;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
 .product .product-container .list-CoffeContainer .box {
   position: relative;
   border-radius: 1rem;
@@ -194,54 +224,6 @@
   cursor: pointer;
 }
 .product .product-container .list-CoffeContainer .box .content .btn-addToCart:hover {
-  background: #27ae60;
-}
-
-/* ======================================================================================= */
-
-.product .product-container .list-TeaContainer {
-  margin-top: 2rem;
-}
-.product .product-container .list-TeaContainer .box {
-  position: relative;
-  border-radius: 1rem;
-  background: #fff;
-  overflow: hidden;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
-}
-.product .product-container .list-TeaContainer .box .image-product img {
-  width: 100%;
-  height: 25rem;
-  -o-object-fit: cover;
-     object-fit: cover;
-}
-.product .product-container .list-TeaContainer .box .content {
-  padding: 2rem;
-}
-.product .product-container .list-TeaContainer .box .content span {
-  display: block;
-  font-size: 1.5rem;
-}
-.product .product-container .list-TeaContainer .box .content span:nth-child(1) {
-  font-weight: 550;
-}
-.product .product-container .list-TeaContainer .box .content span:nth-child(2) {
-  color: var(--orange);
-  font-weight: 600;
-}
-.product .product-container .list-TeaContainer .box .content .btn-addToCart {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  border-top-left-radius: 5rem;
-  display: inline-block;
-  padding: 0.5rem 1.5rem;
-  background: var(--orange);
-  color: #fff;
-  font-size: 1.3rem;
-  cursor: pointer;
-}
-.product .product-container .list-TeaContainer .box .content .btn-addToCart:hover {
   background: #27ae60;
 }
 

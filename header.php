@@ -43,7 +43,7 @@
 
         <div class="icons">
             <div id="menu-btn" class="ri-menu-line"></div>
-            <a href="search-btn" class="ri-search-line"></a>
+            <a href="search-page.php" class="ri-search-line"></a>
             <a href="carts.php" class="ri-shopping-cart-line"></a>
             <?php
             // Start the session

@@ -127,6 +127,7 @@ if (isset($_SESSION['username'])) {
 
     const username = '<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'guest'; ?>';
     const cart = JSON.parse(sessionStorage.getItem('cart_' + username) || '[]');
+    
     console.log('Cart:', cart);
 
     cart.forEach((item) => {
@@ -157,32 +158,34 @@ if (isset($_SESSION['username'])) {
     loadCartItems();
 
     // Thêm sự kiện click cho biểu tượng X
-    cartList.addEventListener('click', function(event) {
-      if (event.target.classList.contains('fa-xmark')) {
-        console.log('X button clicked'); 
+    // Thêm sự kiện click cho biểu tượng X
+cartList.addEventListener('click', function(event) {
+  if (event.target.classList.contains('fa-xmark')) {
+    console.log('X button clicked');
 
-        const row = event.target.closest('tr');
-        const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
+    const row = event.target.closest('tr');
+    const rowName = row.querySelector('td:nth-child(3)').textContent;
+    const rowSize = row.querySelector('td:nth-child(4)').textContent;
+    const rowTopping = row.querySelector('td:nth-child(5)').textContent;
+    const rowPrice = parseFloat(row.querySelector('td:nth-child(6)').textContent.replace('đ', ''));
+    const rowQuantity = parseInt(row.querySelector('td:nth-child(7) input').value);
 
-        const index = cart.findIndex(item => {
-          const rowName = row.querySelector('td:nth-child(3)').textContent;
-          const rowSize = row.querySelector('td:nth-child(4)').textContent;
-          const rowTopping = row.querySelector('td:nth-child(5)').textContent;
-          const rowPrice = parseFloat(row.querySelector('td:nth-child(6)').textContent.replace('đ', ''));
-          const rowQuantity = parseInt(row.querySelector('td:nth-child(7) input').value);
+    const username = '<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'guest'; ?>';
+    const cart = JSON.parse(sessionStorage.getItem('cart_' + username) || '[]');
 
-          return item.name === rowName && item.size === rowSize && item.topping === rowTopping && item.price === rowPrice && item.quantity === rowQuantity;
-        });
-
-        // Xóa sản phẩm khỏi giỏ hàng
-        if (index !== -1) {
-          cart.splice(index, 1);
-          sessionStorage.setItem('cart', JSON.stringify(cart));
-          loadCartItems();
-          calculateTotal();
-        }
-      }
+    const index = cart.findIndex(item => {
+      return item.name === rowName && item.size === rowSize && item.topping === rowTopping && item.price === rowPrice && item.quantity === rowQuantity;
     });
+
+    // Xóa sản phẩm khỏi giỏ hàng
+    if (index !== -1) {
+      cart.splice(index, 1);
+      sessionStorage.setItem('cart_' + username, JSON.stringify(cart));
+      loadCartItems();
+      calculateTotal();
+    }
+  }
+});
 
     // Thêm sự kiện click cho nút "Cập nhật"
     const updateButton = document.querySelector('.btn-update');

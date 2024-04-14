@@ -61,8 +61,7 @@
                 if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
                     var response = JSON.parse(xhr.responseText);
                     if (response.status === 'success') {
-                        localStorage.setItem('token', response.token);
-                        // alert('Đăng nhập thành công!');
+                       
                         window.location.href = "../bookingcoffee/index.php";
                     } else {
                         alert('Đăng nhập thất bại!');
@@ -77,6 +76,10 @@
     document.addEventListener('DOMContentLoaded', function() {
         submitLoginForm();
     });
+
+
+
+    
 </script>
 
 </html>

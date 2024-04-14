@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Lưu thông tin người dùng vào session
                 $_SESSION['username'] = $row['UserName'];
                 $_SESSION['fullname'] = $row['FullName'];
-
+                $_SESSION['accountId'] = $row['AccountID'];
                 // Thiết lập thời gian hết hạn cho token (ví dụ: 1 giờ)
                 $expiry = time() + 3600; // 1 giờ từ thời điểm hiện tại
                 

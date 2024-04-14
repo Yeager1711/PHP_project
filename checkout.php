@@ -17,6 +17,8 @@ session_start();
 </head>
 
 <body onload="loadCartItems()">
+
+
     <div class="checkout">
         <div class="checkout-container">
             <div class="header-checkout">
@@ -100,6 +102,8 @@ session_start();
     </div>
 
     <script>
+      
+
         const cartList = document.querySelector('.list-items tbody');
 
         function loadCartItems() {
@@ -109,6 +113,9 @@ session_start();
             const username = '<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'guest'; ?>';
             const cart = JSON.parse(sessionStorage.getItem('cart_' + username) || '[]');
             console.log('cart:', cart);
+
+           
+            console.log(sessionStorage);
 
 
             cart.forEach((item) => {
@@ -138,29 +145,28 @@ session_start();
 
         }
 
-
         function calculateTotal() {
-  const username = '<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'guest'; ?>';
-  const cart = JSON.parse(sessionStorage.getItem('cart_' + username) || '[]');
-  let subtotal = 0;
+        const username = '<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'guest'; ?>';
+        const cart = JSON.parse(sessionStorage.getItem('cart_' + username) || '[]');
+        let subtotal = 0;
 
-  cart.forEach(item => {
-    let itemPrice = item.price;
+        cart.forEach(item => {
+            let itemPrice = item.price;
 
-    // Tính phụ phí cho kích thước
-    if (item.size === 'Vừa + 10.000đ') {
-      itemPrice += 10.000;
-    } else if (item.size === 'Lớn + 15.000đ') {
-      itemPrice += 15.000;
-    }
+            // Tính phụ phí cho kích thước
+            if (item.size === 'Vừa + 10.000đ') {
+            itemPrice += 10.000;
+            } else if (item.size === 'Lớn + 15.000đ') {
+            itemPrice += 15.000;
+            }
 
-    // Tính phụ phí cho topping
-    const toppingPrice = parseFloat(item.topping.split('+')[1]) || 0;
-    itemPrice += toppingPrice;
+            // Tính phụ phí cho topping
+            const toppingPrice = parseFloat(item.topping.split('+')[1]) || 0;
+            itemPrice += toppingPrice;
 
-    const itemSubtotal = itemPrice * item.quantity;
-    subtotal += itemSubtotal;
-  });
+            const itemSubtotal = itemPrice * item.quantity;
+            subtotal += itemSubtotal;
+        });
 
   const total = subtotal * 1.1;
 
@@ -193,6 +199,10 @@ session_start();
                 }
             }
         });
+
+        
+
+
     </script>
 
 </body>

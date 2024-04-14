@@ -128,7 +128,7 @@ if (isset($_SESSION['username'])) {
   btnCheckout.addEventListener('click', () => {
     const selectedTable = selectTable.value; // Lấy giá trị của bàn đã chọn
 
-    const username = '<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'guest'; ?>';
+    const username = '<?php echo isset($_SESSION['accountId']) ? $_SESSION['accountId'] : 'guest'; ?>';
     console.log('user' + username);
     const cart = JSON.parse(sessionStorage.getItem('cart_' + username) || '[]');
     const encodedCart = encodeURIComponent(JSON.stringify(cart));
@@ -142,7 +142,7 @@ if (isset($_SESSION['username'])) {
     const cartList = document.querySelector('.list-items tbody');
     cartList.innerHTML = '';
 
-    const username = '<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'guest'; ?>';
+    const username = '<?php echo isset($_SESSION['accountId']) ? $_SESSION['accountId'] : 'guest'; ?>';
     const cart = JSON.parse(sessionStorage.getItem('cart_' + username) || '[]');
 
     console.log('Cart:', cart);
@@ -188,7 +188,7 @@ if (isset($_SESSION['username'])) {
         const rowPrice = parseFloat(row.querySelector('td:nth-child(6)').textContent.replace('đ', ''));
         const rowQuantity = parseInt(row.querySelector('td:nth-child(7) input').value);
 
-        const username = '<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'guest'; ?>';
+        const username = '<?php echo isset($_SESSION['accountId']) ? $_SESSION['accountId'] : 'guest'; ?>';
         const cart = JSON.parse(sessionStorage.getItem('cart_' + username) || '[]');
 
         const index = cart.findIndex(item => {

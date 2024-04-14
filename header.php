@@ -49,8 +49,8 @@
             // Start the session
             session_start();
             // Check if the user is logged in
-            if (isset($_SESSION['username'])) {
-                echo '<a class="user-info">Welcome, ' . $_SESSION['fullname'] . '</a>';
+            if (isset($_SESSION['accountId'])) {
+                echo '<a class="user-info">Welcome, ' . $_SESSION['accountId'] . '</a>';
             } else {
                 echo '<a href="./login.php">Login</a>';
             }

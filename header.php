@@ -50,7 +50,7 @@
             session_start();
             // Check if the user is logged in
             if (isset($_SESSION['accountId'])) {
-                echo '<a class="user-info">Welcome, ' . $_SESSION['accountId'] . '</a>';
+                echo '<a class="user-info">Welcome, ' . $_SESSION['fullname'] . '</a>';
             } else {
                 echo '<a href="./login.php">Login</a>';
             }
@@ -66,7 +66,7 @@
     const userInfo = document.querySelector('.user-info');
 
     userInfo.addEventListener('click', function() {
-        if (<?php echo isset($_SESSION['username']) ? 'true' : 'false'; ?>) {
+        if (<?php echo isset($_SESSION['accountId']) ? 'true' : 'false'; ?>) {
             
             var xhr = new XMLHttpRequest();
             

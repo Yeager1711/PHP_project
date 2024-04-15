@@ -171,7 +171,7 @@ if (isset($_SESSION['username'])) {
     const cartList = document.querySelector('.list-items tbody');
     const subtotalElements = document.querySelectorAll('.subtotal p');
     const totalElement = document.querySelector('.total p');
-    const username = '<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'guest'; ?>';
+    const username = '<?php echo isset($_SESSION['accountId']) ? $_SESSION['accountId'] : 'guest'; ?>';
     calculateTotal();
     loadCartItems();
     

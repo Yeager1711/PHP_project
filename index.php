@@ -16,6 +16,7 @@
 
     <!-- remix icon cdn link  -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="image/logo-icon.png">
 
     <link rel="stylesheet" href="./scss/Global.css">
     <link rel="stylesheet" href="./scss/home.css">
@@ -81,7 +82,45 @@
 
 
             <div class="list-CoffeContainer">
-                <h3 class="title-header">Danh sách Coffee</h3>
+                <div class="header-title">
+                    <div class="title">
+                        <h3 class="title-header">Danh sách Coffee</h3>
+                    </div>
+
+                    <div class="box-search">
+                        <input type="text">
+                        <button>Tìm</button>
+                    </div>
+                </div>
+
+                <?php
+                // Kiểm tra xem đã gửi yêu cầu tìm kiếm chưa
+                if (isset($_GET['search'])) {
+                    $search = $_GET['search'];
+                    // Gọi API để lấy danh sách sản phẩm theo từ khóa tìm kiếm
+                    $url = 'http://your_domain/get_all_dish.php?query=' . urlencode($search); // Thay đổi đường dẫn API của bạn
+                    $data = file_get_contents($url);
+                    $products = json_decode($data, true);
+
+                    // Hiển thị danh sách sản phẩm
+                    if (!empty($products)) {
+                        foreach ($products as $product) {
+                            echo '<div class="box">';
+                            echo '<div class="image-product">';
+                            echo '<img src="' . $product['image'] . '" alt="' . $product['name'] . '">';
+                            echo '</div>';
+                            echo '<div class="content">';
+                            echo '<span>' . $product['name'] . '</span>';
+                            echo '<span>' . $product['price'] . '</span>';
+                            echo '</div>';
+                            echo '</div>';
+                        }
+                    } else {
+                        echo "Không tìm thấy sản phẩm.";
+                    }
+                }
+                ?>
+
 
                 <div class="swiper mySwiper">
                     <div class="swiper-wrapper" id="productList">
@@ -100,6 +139,23 @@
         </div>
     </section>
     <script>
+        // Lắng nghe sự kiện khi nhập từ khóa tìm kiếm
+        document.querySelector('input[type="text"]').addEventListener('input', function() {
+            var searchTerm = this.value.toLowerCase(); // Lấy từ khóa tìm kiếm và chuyển thành chữ thường
+
+            // Lặp qua tất cả các sản phẩm trong swiper
+            var swiperSlides = document.querySelectorAll('.swiper-slide');
+            swiperSlides.forEach(function(slide) {
+                var productName = slide.querySelector('.content span:first-child').innerText.toLowerCase(); // Lấy tên sản phẩm và chuyển thành chữ thường
+                // Kiểm tra xem sản phẩm có chứa từ khóa tìm kiếm không
+                if (productName.includes(searchTerm)) {
+                    slide.style.display = 'block'; // Hiển thị sản phẩm nếu chứa từ khóa tìm kiếm
+                } else {
+                    slide.style.display = 'none'; // Ẩn sản phẩm nếu không chứa từ khóa tìm kiếm
+                }
+            });
+        });
+
 
         fetch('./api/v1/dish/get_dish_by_category.php?CateID=7b474708-86f5-4404-94ef-ac1cb8504bba')
             .then(response => response.json())

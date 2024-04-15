@@ -93,9 +93,11 @@ session_start();
                     </div>
 
                     <div class="btn-checkout">
-                        <a href="./order_success.html">
-                            Proceed to checkout</a>
-                    </div>
+    <a href="javascript:void(0);" onclick="createOrder()">
+        Proceed to checkout
+    </a>
+</div>
+
                 </div>
             </section>
         </div>
@@ -103,14 +105,13 @@ session_start();
 
     <script>
       
-
         const cartList = document.querySelector('.list-items tbody');
 
         function loadCartItems() {
             console.log('cart list ', cartList);
             cartList.innerHTML = '';
 
-            const username = '<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'guest'; ?>';
+            const username = '<?php echo isset($_SESSION['accountId']) ? $_SESSION['accountId'] : 'guest'; ?>';
             const cart = JSON.parse(sessionStorage.getItem('cart_' + username) || '[]');
             console.log('cart:', cart);
 
@@ -146,7 +147,7 @@ session_start();
         }
 
         function calculateTotal() {
-        const username = '<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'guest'; ?>';
+        const username = '<?php echo isset($_SESSION['accountId']) ? $_SESSION['accountId'] : 'guest'; ?>';
         const cart = JSON.parse(sessionStorage.getItem('cart_' + username) || '[]');
         let subtotal = 0;
 
@@ -185,7 +186,7 @@ session_start();
                 const rowPrice = parseFloat(row.querySelector('td:nth-child(6)').textContent.replace('đ', ''));
                 const rowQuantity = parseInt(row.querySelector('td:nth-child(7) input').value);
 
-                const username = '<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'guest'; ?>';
+                const username = '<?php echo isset($_SESSION['accountId']) ? $_SESSION['accountId'] : 'guest'; ?>';
                 const cart = JSON.parse(sessionStorage.getItem('cart_' + username) || '[]');
 
                 const index = cart.findIndex(item => {

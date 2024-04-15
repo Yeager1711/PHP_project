@@ -342,7 +342,7 @@
         }
 
         function isLoggedIn() {
-            return <?php echo isset($_SESSION['username']) ? 'true' : 'false'; ?>;
+            return <?php echo isset($_SESSION['accountId']) ? 'true' : 'false'; ?>;
         }
 
 
@@ -404,7 +404,7 @@
             cartItem.sizePrice = sizePrice;
             cartItem.toppingPrice = toppingPrice;
 
-            let username = '<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'guest'; ?>';
+            let username = '<?php echo isset($_SESSION['accountId']) ? $_SESSION['accountId'] : 'guest'; ?>';
             let cart = JSON.parse(sessionStorage.getItem('cart_' + username) || '[]');
             cart.push(cartItem);
             sessionStorage.setItem('cart_' + username, JSON.stringify(cart));

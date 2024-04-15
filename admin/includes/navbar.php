@@ -35,10 +35,11 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Các thành phần:</h6>
-                <a class="collapse-item" href="category.php">Người quản trị</a>
+               
                 <a class="collapse-item" href="category.php">Danh mục</a>
                 <a class="collapse-item" href="dish.php">Sản phẩm</a>
                 <a class="collapse-item" href="topping.php">Topping</a>
+                <a class="collapse-item" href="getorders.php">Orders</a>
             </div>
         </div>
     </li>

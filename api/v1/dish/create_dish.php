@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
   
 
-    if (isset($data['DishName']) && isset($data['Price']) && isset($data['Description']) && isset($data['Amount']) && isset($data['Image']) && isset($data['Status']) && isset($data['CateID']) && isset($data['ToppingID'])) {
+    if (isset($data['DishName']) && isset($data['Price']) && isset($data['Description']) && isset($data['Amount']) && isset($data['Image']) && isset($data['Status']) && isset($data['CateID'])) {
         $dishName = $data['DishName'];
         $price = $data['Price'];
         $description = $data['Description'];
@@ -65,13 +65,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $image = $data['Image'];
         $status = $data['Status'];
         $cateID = $data['CateID'];
-        $toppingID = $data['ToppingID'];
+    
         $dishID = generateDrinksID();
 
-        $sql = "INSERT INTO dish (DishID, DishName, Price, Description, Amount, Image, Status, CateID, ToppingID) VALUES ('$dishID', '$dishName', '$price', '$description', '$amount', '$image','$status', '$cateID', '$toppingID')";
+        $sql = "INSERT INTO dish (DishID, DishName, Price, Description, Amount, Image, Status, CateID) VALUES ('$dishID', '$dishName', '$price', '$description', '$amount', '$image','$status', '$cateID')";
 
         if ($conn->query($sql) === TRUE) {
-            $response = array('message' => 'Dish created successfully', 'status' => 'success', 'data' => array('DishID' => $dishID, 'DishName' => $dishName, 'Price' => $price, 'Description' => $description, 'Amount' => $amount, 'Image' => $image, 'Status' => $status, 'CateID' => $cateID, 'ToppingID' => $toppingID,));
+            $response = array('message' => 'Dish created successfully', 'status' => 'success', 'data' => array('DishID' => $dishID, 'DishName' => $dishName, 'Price' => $price, 'Description' => $description, 'Amount' => $amount, 'Image' => $image, 'Status' => $status, 'CateID' => $cateID,));
             echo json_encode($response);
         } else {
             $response = array('message' => 'Failed to create drinks dish', 'status' => 'error', 'error' => $conn->error);
